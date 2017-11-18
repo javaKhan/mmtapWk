@@ -44,7 +44,7 @@ ManageInfoDlg.close = function() {
  * 收集数据
  */
 ManageInfoDlg.collectData = function() {
-    this.set('businessname');
+    this.set('bid').set('businessname');
 }
 
 /**

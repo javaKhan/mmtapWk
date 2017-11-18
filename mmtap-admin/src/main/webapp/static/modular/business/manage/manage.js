@@ -61,7 +61,7 @@ Manage.openManageDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/manage/manage_update/' + Manage.seItem.id
+            content: Feng.ctxPath + '/manage/manage_update/' + Manage.seItem.bid
         });
         this.layerIndex = index;
     }
@@ -78,7 +78,7 @@ Manage.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("manageId",this.seItem.id);
+        ajax.set("bid",this.seItem.bid);
         ajax.start();
     }
 };

@@ -82,7 +82,7 @@ FlowState.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("flowId",this.seItem.id);
+        ajax.set("fid",this.seItem.fid);
         ajax.start();
     }
 };

@@ -103,7 +103,12 @@ public class FlowController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete() {
+    public Object delete(@RequestParam Integer fid) {
+        if (ToolUtil.isEmpty(fid)) {
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        flowDao.deleteById(fid);
+        CacheKit.removeAll(Cache.CONSTANT);
         return SUCCESS_TIP;
     }
 

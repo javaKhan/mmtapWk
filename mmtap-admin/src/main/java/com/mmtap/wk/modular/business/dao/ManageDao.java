@@ -14,5 +14,11 @@ import java.util.Map;
  * @Date 2017-11-13 22:58:10
  */
 public interface ManageDao extends BaseMapper<Business> {
+    /**
+     * 条件查询业务
+     * @param condition
+     * @return
+     */
     List<Map<String, Object>> list(@Param("condition") String condition);
+
 }
