@@ -36,6 +36,6 @@ public class WkApplication extends WebMvcConfigurerAdapter{
 
     public static void main(String[] args) {
         SpringApplication.run(WkApplication.class, args);
-        logger.info("GunsApplication is success!");
+        logger.info("WkApplication is success!");
     }
 }

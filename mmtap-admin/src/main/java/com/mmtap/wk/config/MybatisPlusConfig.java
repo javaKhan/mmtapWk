@@ -47,7 +47,7 @@ public class MybatisPlusConfig {
     }
 
     /**
-     * guns的数据源
+     * wk的数据源
      */
     private DruidDataSource dataSourceGuns(){
         DruidDataSource dataSource = new DruidDataSource();
@@ -59,7 +59,7 @@ public class MybatisPlusConfig {
      * 单数据源连接池配置
      */
     @Bean
-    @ConditionalOnProperty(prefix = "guns", name = "muti-datasource-open", havingValue = "false")
+    @ConditionalOnProperty(prefix = "wk", name = "muti-datasource-open", havingValue = "false")
     public DruidDataSource singleDatasource() {
         return dataSourceGuns();
     }
@@ -68,7 +68,7 @@ public class MybatisPlusConfig {
      * 多数据源连接池配置
      */
     @Bean
-    @ConditionalOnProperty(prefix = "guns", name = "muti-datasource-open", havingValue = "true")
+    @ConditionalOnProperty(prefix = "wk", name = "muti-datasource-open", havingValue = "true")
     public DynamicDataSource mutiDataSource() {
 
         DruidDataSource dataSourceGuns = dataSourceGuns();

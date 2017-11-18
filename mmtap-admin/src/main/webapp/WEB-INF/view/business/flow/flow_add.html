@@ -1,0 +1,38 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+
+            <input type="hidden" id="bid" value="">
+
+            <div class="row">
+                <div class="col-sm-6 col-md-6 b-r">
+                    <#input id="flowname" name="状态名称" underline="true"/>
+                    <#input id="floworder" name="排序" underline="true" />
+                    <#input id="roleText" name="操作角色" underline="true" hidden="flowrole" readonly="readonly"
+                            clickFun="FlowInfoDlg.showRoleSelectTree(); return false;"
+                            style="background-color: #ffffff !important;"/>
+
+                </div>
+                <div class="col-sm-6"col-md-6>
+
+                </div>
+
+            </div>
+            <!-- 角色树下拉选择 -->
+            <div id="roleTextContext" class="menuContent"
+                 style="display: none; position: absolute; z-index: 200;">
+                <ul id="roleNameTree" class="ztree tree-box" style="width: 250px !important;"></ul>
+            </div>
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="FlowInfoDlg.addSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="FlowInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/business/flow/flow_state_info.js"></script>
+@}
