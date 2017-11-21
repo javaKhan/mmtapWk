@@ -7895,3 +7895,10 @@ body.skin-3 {
     background-color: #293846 !important;
     color: white !important;
 }
+
+/**
+自定义样式
+ */
+.info-row-height{
+    line-height: 30px;
+}

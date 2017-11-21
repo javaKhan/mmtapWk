@@ -113,4 +113,15 @@ public interface IConstantFactory {
      */
     List<Integer> getParentDeptIds(Integer deptid);
 
+
+    /*  ＝＝＝＝＝＝＝＝＝＝
+     *   个人添加部分
+     *   ＝＝＝＝＝＝＝＝＝＝
+     */
+
+    String getCustomName(String cid);
+
+    Object getBusinessInfo(Integer bid);
+
+    Object getFlowInfo(Integer fid);
 }

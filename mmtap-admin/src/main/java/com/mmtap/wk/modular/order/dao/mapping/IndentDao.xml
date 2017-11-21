@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmtap.wk.modular.order.dao.IndentDao">
+
+    <select id="list" resultType="map">
+        select * from indent
+        order by createtime DESC
+    </select>
+
+    <select id="selectById" resultType="com.mmtap.wk.modular.order.model.Indent">
+        select * from indent where oid=#{oid}
+    </select>
+
+    <select id="listCustomOrders" resultType="map">
+        select i.*,c.customname,u.`name` from indent i,custom c,user u
+        where i.cid = c.cid and u.id = i.creater
+        and i.cid =#{customId}
+    </select>
+</mapper>

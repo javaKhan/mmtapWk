@@ -13,6 +13,12 @@ import com.mmtap.wk.core.support.StrKit;
 import com.mmtap.wk.core.util.Convert;
 import com.mmtap.wk.core.util.SpringContextHolder;
 import com.mmtap.wk.core.util.ToolUtil;
+import com.mmtap.wk.modular.business.dao.FlowDao;
+import com.mmtap.wk.modular.business.dao.ManageDao;
+import com.mmtap.wk.modular.business.wrapper.BusinessWrapper;
+import com.mmtap.wk.modular.order.dao.CustomDao;
+import com.mmtap.wk.modular.order.dao.IndentDao;
+import com.mmtap.wk.modular.order.model.Custom;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
@@ -38,6 +44,12 @@ public class ConstantFactory implements IConstantFactory {
     private UserMapper userMapper = SpringContextHolder.getBean(UserMapper.class);
     private MenuMapper menuMapper = SpringContextHolder.getBean(MenuMapper.class);
     private NoticeMapper noticeMapper = SpringContextHolder.getBean(NoticeMapper.class);
+
+    private CustomDao customDao = SpringContextHolder.getBean(CustomDao.class);
+    private IndentDao indentDao = SpringContextHolder.getBean(IndentDao.class);
+    private ManageDao manageDao = SpringContextHolder.getBean(ManageDao.class);
+    private FlowDao flowDao = SpringContextHolder.getBean(FlowDao.class);
+
 
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
@@ -331,5 +343,28 @@ public class ConstantFactory implements IConstantFactory {
         return parentDeptIds;
     }
 
+    /**
+     * 根据客户ID获取客户姓名
+     * @param cid
+     * @return
+     */
+    @Override
+    public String getCustomName(String cid) {
+        String cusName ="--";
+        Custom custom = customDao.selectById(cid);
+        if(null!=custom){
+            cusName = custom.getCustomname();
+        }
+        return cusName;
+    }
 
+    @Override
+    public Object getBusinessInfo(Integer bid) {
+        return manageDao.selectById(bid);
+    }
+
+    @Override
+    public Object getFlowInfo(Integer fid) {
+        return flowDao.selectById(fid);
+    }
 }

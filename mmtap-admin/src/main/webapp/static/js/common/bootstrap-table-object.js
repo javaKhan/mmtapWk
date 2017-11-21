@@ -80,7 +80,13 @@
         setPaginationType: function (type) {
             this.paginationType = type;
         },
-
+        /**
+         * 设置是否点击选中行
+         * @param type
+         */
+        setClickToSelect:function (type) {
+            this.clickToSelect = type;
+        },
         /**
          * 设置ajax post请求时候附带的参数
          */

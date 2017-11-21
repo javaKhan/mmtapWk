@@ -1,0 +1,80 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <div class="row">
+                <h3>订单信息</h3>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-4">订单号:<b>${order.oid}</b></div>
+                <div class="col-sm-4">时间:${order.createtime,"yyyy-MM-dd HH:mm:ss"}</div>
+                <div class="col-sm-4">创建人:${createName}</div>
+            </div>
+
+
+            <div class="row" style="margin-top: 30px">
+                <h3>客户信息</h3>
+            </div>
+            <hr>
+            <div class="row info-row-height">
+                <div class="col-sm-2 text-right">客户名称</div>
+                <div class="col-sm-4 text-left b-r">${custom.customname}</div>
+
+                <div class="col-sm-2 text-right">客户电话</div>
+                <div class="col-sm-4">${custom.mobile}</div>
+            </div>
+            <div class="row info-row-height">
+                <div class="col-sm-2 text-right">旺旺号码</div>
+                <div class="col-sm-4 b-r">${custom.wwid}</div>
+
+                <div class="col-sm-2 text-right">QQ/微信</div>
+                <div class="col-sm-4">${custom.netid}</div>
+            </div>
+            <div class="row info-row-height">
+                <div class="col-sm-2 text-right">客户来源</div>
+                <div class="col-sm-4 b-r">${custom.come}</div>
+
+                <div class="col-sm-2 text-right">地址</div>
+                <div class="col-sm-4">${custom.address}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2 text-right ">客户备注</div>
+                <div class="col-sm-10 text-danger">${custom.cuscom}</div>
+            </div>
+            <div class="row info-row-height" style="margin-top: 20px">
+                <div class="col-sm-2 text-right">订购业务</div>
+                <div class="col-sm-10">
+                    <div class="row">
+                        @for(work in works){
+                        <div class="col-sm-6">${work.business.businessname}</div>
+                        @}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" style="margin-top: 30px">
+                <h3>业务信息</h3>
+            </div>
+            <hr>
+            @for(work in works){
+            <div class="row info-row-height">
+                <div class="col-md-4">业务:${work.business.businessname}</div>
+                <div class="col-md-4">价格:${work.price}</div>
+                <div class="col-md-4">状态:${work.flow.flowname!}</div>
+                <div class="col-md-12">${work.workcom!}</div>
+            </div>
+            @}
+            <div class="row btn-group-m-t">
+                <div class="col-sm-10">
+                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="OrderInfoDlg.editSubmit()"/>
+                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="OrderInfoDlg.close()"/>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/order/order/order_info.js"></script>
+@}

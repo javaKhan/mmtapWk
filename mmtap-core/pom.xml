@@ -11,6 +11,7 @@
     <artifactId>mmtap-core</artifactId>
     <packaging>jar</packaging>
 
+    <groupId>com.mmtap</groupId>
     <name>mmtap-core</name>
     <url>http://maven.apache.org</url>
 

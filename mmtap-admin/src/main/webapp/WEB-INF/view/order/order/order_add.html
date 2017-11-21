@@ -1,0 +1,58 @@
+@layout("/common/_container.html"){
+<div class="ibox float-e-margins">
+    <div class="ibox-content">
+        <div class="form-horizontal">
+            <form method="post" action="/order/add">
+                <div class="row">
+                    <div class="row"><div class="col-md-12"><h3>客户资料信息</h3></div></div>
+                    <div class="col-sm-6 b-r">
+                        <#input id="customname" name="客户名称" underline="true"/>
+                        <#input id="wwid" name="旺旺号码" underline="true"/>
+                        <#input id="address" name="联系地址" underline="true"/>
+                    </div>
+                    <div class="col-sm-6">
+                        <#input id="mobile" name="联系电话" underline="true"/>
+                        <#input id="netid" name="QQ/微信" underline="true"/>
+                        <#input id="place" name="客户所在地" underline="true"/>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-1 text-center">客户备注</div>
+                            <div class="col-md-10">
+                                <textarea id="cuscom" class="form-control" rows="3" name="cuscom"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row"><div class="col-md-12"><h3>订购办理业务</h3></div></div>
+                    <div style="padding: 20px;margin: 20px 5px;">
+                        @for(bus in busList){
+                            <div class="col-md-3 checkbox text-center" style="text-align: left">
+                                <label>
+                                    <input id="buss" type="checkbox" name="buss" value="${bus.bid}" style="margin-top: 2px;">${bus.businessname}
+                                </label>
+                            </div>
+                        @}
+                    </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <textarea id="ordcom" class="form-control" rows="5" name="ordcom" placeholder="请输入备注"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row btn-group-m-t">
+                <div class="col-sm-10 text-center">
+                    <!--<#button btnCss="info" name="受理业务" id="ensure" icon="fa-check" clickFun="OrderInfoDlg.addSubmit()"/>-->
+                    <button btnCss="info" id="ensure" icon="fa-check" type="submit">受理</button>
+                    <!--<#button btnCss="danger" name="重新填写" id="cancel" icon="fa-eraser" clickFun="OrderInfoDlg.close()"/>-->
+                </div>
+            </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/order/order/order_info.js"></script>
+@}
