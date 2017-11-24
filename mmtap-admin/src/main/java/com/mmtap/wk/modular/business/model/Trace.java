@@ -1,17 +1,34 @@
 package com.mmtap.wk.modular.business.model;
 
+import com.baomidou.mybatisplus.activerecord.Model;
+
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 业务跟踪纪录
  */
-public class Trace {
+public class Trace extends Model<Trace>{
     private int tid;
-    private int doer;
     private String oid;
+
+    private int doer;
+    private String doername; //不好获取
+
+
+    private String cid;
+    private String cusname;
+
+    private String wid;
+    private String workname;
+
     private int bs;
+    private String bsname;  //
+
     private int cs;
-    private int wid;
+    private String csname;
+
+
     private String msg;
     private Date createtime;
 
@@ -55,11 +72,11 @@ public class Trace {
         this.cs = cs;
     }
 
-    public int getWid() {
+    public String getWid() {
         return wid;
     }
 
-    public void setWid(int wid) {
+    public void setWid(String wid) {
         this.wid = wid;
     }
 
@@ -77,5 +94,58 @@ public class Trace {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public String getDoername() {
+        return doername;
+    }
+
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+
+    public String getCusname() {
+        return cusname;
+    }
+
+    public void setCusname(String cusname) {
+        this.cusname = cusname;
+    }
+
+    public void setDoername(String doername) {
+        this.doername = doername;
+    }
+
+    public String getBsname() {
+        return bsname;
+    }
+
+    public void setBsname(String bsname) {
+        this.bsname = bsname;
+    }
+
+    public String getCsname() {
+        return csname;
+    }
+
+    public void setCsname(String csname) {
+        this.csname = csname;
+    }
+
+    public String getWorkname() {
+        return workname;
+    }
+
+    public void setWorkname(String workname) {
+        this.workname = workname;
+    }
+
+    @Override
+    protected Serializable pkVal() {
+        return this.wid;
     }
 }

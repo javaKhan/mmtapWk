@@ -14,7 +14,7 @@ public class Flow extends Model<Flow> {
     /**
      * 业务id
      */
-    private int bid;
+    private Integer bid;
     /**
      * 流程状态名称
      */

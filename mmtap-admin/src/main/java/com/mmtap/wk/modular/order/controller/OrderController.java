@@ -9,6 +9,8 @@ import com.mmtap.wk.core.base.controller.BaseController;
 import com.mmtap.wk.core.shiro.ShiroKit;
 import com.mmtap.wk.core.util.ToolUtil;
 import com.mmtap.wk.modular.business.dao.ManageDao;
+import com.mmtap.wk.modular.business.dao.TraceDao;
+import com.mmtap.wk.modular.business.model.Trace;
 import com.mmtap.wk.modular.business.wrapper.BusinessWrapper;
 import com.mmtap.wk.modular.order.dao.CustomDao;
 import com.mmtap.wk.modular.order.dao.IndentDao;
@@ -55,6 +57,8 @@ public class OrderController extends BaseController {
     private ManageDao busDao;
     @Autowired
     private IndentDao indentDao;
+    @Autowired
+    private TraceDao traceDao;
 
 
     /**
@@ -117,6 +121,8 @@ public class OrderController extends BaseController {
      */
     @RequestMapping("/order_trace/{orderId}")
     public String orderTrace(@PathVariable String orderId, Model model) {
+        List<Trace> list = traceDao.selectList(new EntityWrapper<Trace>().eq("oid",orderId).orderBy("createtime"));
+        model.addAttribute("traces",list);
         return PREFIX + "order_trace.html";
     }
 

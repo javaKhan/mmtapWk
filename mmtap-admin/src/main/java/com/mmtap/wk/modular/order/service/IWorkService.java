@@ -1,5 +1,7 @@
 package com.mmtap.wk.modular.order.service;
 
+import java.util.List;
+
 /**
  * 工作Service
  *
@@ -8,4 +10,7 @@ package com.mmtap.wk.modular.order.service;
  */
 public interface IWorkService {
 
+    List getTodoWorks();
+
+    int lockWork(String wid, Integer uid);
 }

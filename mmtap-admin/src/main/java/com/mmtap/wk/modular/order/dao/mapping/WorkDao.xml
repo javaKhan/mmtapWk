@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mmtap.wk.modular.order.dao.WorkDao">
+    <select id="getTodoWorks" parameterType="java.util.List"  resultType="Map">
+      SELECT w.*,f.flowname,b.businessname,c.customname,u.`name` from work w,flow f,business b,custom c,`user` u
+      where w.fid = f.fid and w.bid = f.bid and b.bid = w.bid and c.cid = w.cid and w.creater = u.id and w.doer IS NULL
+      and f.flowrole in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        order by w.createtime
+    </select>
+
+    <update id="lockWork">
+        UPDATE `work` SET doer=#{uid} WHERE wid=#{wid}
+    </update>
+
+    <select id="getMyWorks">
+
+    </select>
 
 </mapper>

@@ -15,7 +15,8 @@ import com.mmtap.wk.core.util.SpringContextHolder;
 import com.mmtap.wk.core.util.ToolUtil;
 import com.mmtap.wk.modular.business.dao.FlowDao;
 import com.mmtap.wk.modular.business.dao.ManageDao;
-import com.mmtap.wk.modular.business.wrapper.BusinessWrapper;
+import com.mmtap.wk.modular.business.model.Business;
+import com.mmtap.wk.modular.business.model.Flow;
 import com.mmtap.wk.modular.order.dao.CustomDao;
 import com.mmtap.wk.modular.order.dao.IndentDao;
 import com.mmtap.wk.modular.order.model.Custom;
@@ -359,12 +360,17 @@ public class ConstantFactory implements IConstantFactory {
     }
 
     @Override
-    public Object getBusinessInfo(Integer bid) {
+    public Business getBusinessInfo(Integer bid) {
         return manageDao.selectById(bid);
     }
 
     @Override
-    public Object getFlowInfo(Integer fid) {
+    public Flow getFlowInfo(Integer fid) {
         return flowDao.selectById(fid);
+    }
+
+    @Override
+    public Integer getFirstFlowId(Integer bid) {
+        return flowDao.getFirstFlowId(bid);
     }
 }

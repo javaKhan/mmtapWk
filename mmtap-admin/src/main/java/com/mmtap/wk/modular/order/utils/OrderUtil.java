@@ -29,4 +29,12 @@ public class OrderUtil {
     public static String createCustomID() {
         return UUID.randomUUID().toString();
     }
+
+    /**
+     * 工作ID生成器
+     * @return
+     */
+    public static String createWorkId() {
+        return  UUID.randomUUID().toString().replaceAll("[-]","");
+    }
 }

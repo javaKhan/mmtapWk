@@ -15,5 +15,7 @@ import java.util.Map;
  */
 public interface FlowDao extends BaseMapper<Flow> {
 
-    public List<Map<String, Object>> listByBid(@Param("bid") Integer bid);
+    List<Map<String, Object>> listByBid(@Param("bid") Integer bid);
+
+    Integer getFirstFlowId(Integer bid);
 }

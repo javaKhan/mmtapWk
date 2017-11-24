@@ -14,7 +14,13 @@ var Work = {
 Work.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'}
+        {title: 'id', field: 'wid', visible: false, align: 'center', valign: 'middle'},
+        {title: '订单号', field: 'oid', visible: true, align: 'center', valign: 'middle'},
+        {title: '客户', field: 'customname', visible: true, align: 'center', valign: 'middle'},
+        {title: '业务类型', field: 'businessname', visible: true, align: 'center', valign: 'middle'},
+        {title: '业务状态', field: 'flowname', visible: true, align: 'center', valign: 'middle'},
+        {title: '创建人', field: 'name', visible: true, align: 'center', valign: 'middle'},
+        {title: '创建时间', field: 'createtime', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 
@@ -33,18 +39,35 @@ Work.check = function () {
 };
 
 /**
+ * 客户点击受理一个业务
+ * 锁定该业务别人不能处理
+ */
+Work.workLock =function () {
+    if (this.check()) {
+        var ajax = new $ax(Feng.ctxPath + "/work/work_lock", function (data) {
+            Feng.success("受理成功!");
+            Work.table.refresh();
+        }, function (data) {
+            Feng.error("受理失败!" + data.responseJSON.message + "!");
+        });
+        ajax.set("wid",this.seItem.wid);
+        ajax.start();
+    }
+}
+
+
+/**
  * 点击添加工作
  */
-Work.openAddWork = function () {
-    var index = layer.open({
-        type: 2,
-        title: '添加工作',
-        area: ['800px', '420px'], //宽高
-        fix: false, //不固定
-        maxmin: true,
-        content: Feng.ctxPath + '/work/work_add'
-    });
-    this.layerIndex = index;
+Work.doWork = function () {
+    if(this.check()){
+       if(row.length>0){
+           var url =Feng.ctxPath+'/work/work_do'
+           $("#work").load(url,Work.seItem);
+       }
+    }
+
+
 };
 
 /**

@@ -1,6 +1,7 @@
 package com.mmtap.wk.core.base.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.mmtap.wk.core.base.tips.ErrorTip;
 import com.mmtap.wk.core.base.tips.SuccessTip;
 import com.mmtap.wk.core.base.warpper.BaseControllerWarpper;
 import com.mmtap.wk.core.page.PageInfoBT;

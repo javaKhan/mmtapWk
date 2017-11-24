@@ -162,6 +162,7 @@ public class CustomController extends BaseController {
     @RequestMapping("/works/{customId}")
     public Object customWorks(@PathVariable String customId,Model model){
         List orderList = indentDao.listCustomOrders(customId);
+
         model.addAttribute("orders",orderList);
         return PREFIX+"custom_works.html";
     }

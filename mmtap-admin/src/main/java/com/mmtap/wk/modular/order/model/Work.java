@@ -9,7 +9,7 @@ import java.util.Date;
  * 订单业务项
  */
 public class Work extends Model<Work>{
-    private Integer wid;  //工单号
+    private String wid;  //工单号
     private String oid;   //订单号
     private String cid;   //客户号
 
@@ -20,11 +20,11 @@ public class Work extends Model<Work>{
     private double price;    //价格
     private String workcom; //备注
 
-    public Integer getWid() {
+    public String getWid() {
         return wid;
     }
 
-    public void setWid(Integer wid) {
+    public void setWid(String wid) {
         this.wid = wid;
     }
 

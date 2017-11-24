@@ -3,6 +3,7 @@ package com.mmtap.wk.modular.order.dao;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.mmtap.wk.modular.order.model.Work;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,9 @@ import java.util.Map;
  * @Date 2017-11-18 17:50:20
  */
 public interface WorkDao extends BaseMapper<Work> {
+    List<Map<String,Object>> getTodoWorks(List roleList);
 
-//    @Override
-//    List<Map<String, Object>> selectList(Wrapper<Work> wrapper);
+    int lockWork(@Param("wid") String wid,@Param("uid") Integer uid);
+
+    List getMyWorks(Integer uid);
 }

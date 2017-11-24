@@ -5,4 +5,10 @@
     <select id="listByBid" resultType="map">
         select * from flow where bid = #{bid} ORDER  BY floworder
     </select>
+
+    <select id="getFirstFlowId" resultType="Integer">
+        select fid from flow where bid=#{bid} and floworder=(
+          select MIN(floworder) as mo from flow where bid=#{bid} )
+    </select>
+
 </mapper>

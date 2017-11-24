@@ -1,6 +1,8 @@
 package com.mmtap.wk.common.constant.factory;
 
 import com.mmtap.wk.common.persistence.model.Dict;
+import com.mmtap.wk.modular.business.model.Business;
+import com.mmtap.wk.modular.business.model.Flow;
 
 import java.util.List;
 
@@ -121,7 +123,9 @@ public interface IConstantFactory {
 
     String getCustomName(String cid);
 
-    Object getBusinessInfo(Integer bid);
+    Business getBusinessInfo(Integer bid);
 
-    Object getFlowInfo(Integer fid);
+    Flow getFlowInfo(Integer fid);
+
+    Integer getFirstFlowId(Integer bid);
 }
