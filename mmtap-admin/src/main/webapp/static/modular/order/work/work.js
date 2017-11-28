@@ -57,20 +57,6 @@ Work.workLock =function () {
 
 
 /**
- * 点击添加工作
- */
-Work.doWork = function () {
-    if(this.check()){
-       if(row.length>0){
-           var url =Feng.ctxPath+'/work/work_do'
-           $("#work").load(url,Work.seItem);
-       }
-    }
-
-
-};
-
-/**
  * 打开查看工作详情
  */
 Work.openWorkDetail = function () {

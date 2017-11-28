@@ -1,14 +1,16 @@
 package com.mmtap.wk.modular.order.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.mmtap.wk.common.exception.BizExceptionEnum;
 import com.mmtap.wk.common.exception.BussinessException;
 import com.mmtap.wk.core.base.controller.BaseController;
 import com.mmtap.wk.core.base.tips.ErrorTip;
 import com.mmtap.wk.core.shiro.ShiroKit;
 import com.mmtap.wk.core.util.ToolUtil;
+import com.mmtap.wk.modular.business.dao.PropDao;
+import com.mmtap.wk.modular.business.model.Prop;
 import com.mmtap.wk.modular.order.dao.WorkDao;
-import com.mmtap.wk.modular.order.model.Work;
 import com.mmtap.wk.modular.order.service.IWorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +39,8 @@ public class WorkController extends BaseController {
     private IWorkService workService;
     @Autowired
     private WorkDao workDao;
+    @Autowired
+    private PropDao propDao;
 
 
     /**
@@ -62,12 +66,13 @@ public class WorkController extends BaseController {
     }
 
     /**
-     * 受理工作
+     * 我的工作列表
      */
     @RequestMapping("/mywork")
-    public String workLock() {
+    public String workLock(Model model) {
         Integer uid = ShiroKit.getUser().getId();
         List myWorks = workDao.getMyWorks(uid);
+        model.addAttribute("myworks",myWorks);
         return PREFIX+"work_my.html";
     }
 
@@ -75,19 +80,16 @@ public class WorkController extends BaseController {
     /**
      * 跳转到处理工作
      */
-    @RequestMapping("/work_do")
-    public String workDo(@RequestParam Map map) {
-        if (ToolUtil.isEmpty(map) &&
-                null!=map.get("wid") &&
-                null!=map.get("cid") &&
-                null!=map.get("bid") &&
-                null!=map.get("fid")) {
+    @RequestMapping("/work_do/{wid}")
+    public String workDo(@PathVariable String wid,Model model) {
+        if(ToolUtil.isEmpty(wid)){
             throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
         }
-        String wid = map.get("wid").toString();
-        Work work = workDao.selectById(wid);
+        Map workInfo = workDao.getWorkInfo(wid);
+        model.addAttribute("workInfo",workInfo);
 
-
+        List props = propDao.selectList(new EntityWrapper<Prop>().eq("bid",workInfo.get("bid")));
+        model.addAttribute("props",props);
         return PREFIX + "work_do.html";
     }
 

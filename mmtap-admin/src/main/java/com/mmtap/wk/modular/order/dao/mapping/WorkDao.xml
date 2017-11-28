@@ -15,8 +15,17 @@
         UPDATE `work` SET doer=#{uid} WHERE wid=#{wid}
     </update>
 
-    <select id="getMyWorks">
-
+    <select id="getMyWorks"  resultType="Map">
+      SELECT w.*,f.flowname,b.businessname,c.customname,u.`name` from work w,flow f,business b,custom c,`user` u
+      where w.fid = f.fid and w.bid = f.bid and b.bid = w.bid and c.cid = w.cid and w.creater = u.id
+      and w.doer=#{uid}
+        order by w.createtime
     </select>
 
+    <select id="getWorkInfo" resultType="Map">
+      select w.*,i.comments,b.businessname,f.flowname,u.`name`,c.*
+        from work w,indent i,business b,flow f,`user` u,custom c
+        where w.oid=i.oid and w.bid=b.bid and w.fid = f.fid and w.creater =u.id and w.cid=c.cid
+        and wid=#{wid}
+    </select>
 </mapper>

@@ -3,21 +3,60 @@
     <div class="ibox-content">
         <div class="form-horizontal">
 
-
             <div class="row">
-                <div class="col-sm-6 b-r">
-
-                </div>
-
-                <div class="col-sm-6">
-
-                </div>
+                <h3>订单信息</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-4">订单号:${workInfo.oid}</div>
+                <div class="col-md-4">创建者:${workInfo.name}</div>
+                <div class="col-md-4">时间:${workInfo.createtime}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">备注:</div>
+                <div class="col-md-11 text-danger large">${workInfo.comments}</div>
             </div>
 
-            <div class="row btn-group-m-t">
+            <div class="row">
+                <h3>客户信息</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-4">客户:${workInfo.customname}</div>
+                <div class="col-md-4">业务:${workInfo.businessname}</div>
+                <div class="col-md-4">状态:${workInfo.flowname}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">电话:${workInfo.mobile}</div>
+                <div class="col-md-4">旺旺:${workInfo.wwid}</div>
+                <div class="col-md-4">QQ/微信:${workInfo.netid}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">来源:${workInfo.come}</div>
+                <div class="col-md-4">所在地:${workInfo.place}</div>
+                <div class="col-md-4">地址:${workInfo.address}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-1 large">客户信息备注:</div>
+                <div class="col-md-11 text-danger text-left">${workInfo.cuscom}</div>
+            </div>
+
+            <div class="row">
+                <h4>业务信息</h4>
+            </div>
+            <form id="propForm" method="post">
+                <input name="wid" type="hidden" value="${workInfo.wid}" >
+                <div class="row">
+                    @for(prop in props){
+                    <!--<div class="col-md-2">${prop.title}</div>-->
+                    <div class="col-md-6">
+                        <#input id="${prop.title}" name="${prop.title}" underline="true"/>
+                    </div>
+                    @}
+                </div>
+            </form>
+            <div class="row btn-group-m-t text-center">
                 <div class="col-sm-10">
-                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.editSubmit()"/>
-                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="WorkInfoDlg.close()"/>
+                    <#button btnCss="info" name="测试" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.saveTemp()"/>
+                    <#button btnCss="info" name="处理完成，下一流程!" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.editSubmit()"/>
                 </div>
             </div>
         </div>

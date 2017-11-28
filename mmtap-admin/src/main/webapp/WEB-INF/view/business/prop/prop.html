@@ -1,9 +1,9 @@
 @layout("/common/_container.html"){
-<div class="row" id="work">
+<div class="row" id="prop">
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>工作管理</h5>
+                <h5>属性管理</h5>
             </div>
             <div class="ibox-content">
                 <div class="row row-lg">
@@ -13,19 +13,27 @@
                                 <#NameCon id="condition" name="名称" />
                             </div>
                             <div class="col-sm-3">
-                                <#button name="搜索" icon="fa-search" clickFun="Work.search()"/>
+                                <#button name="搜索" icon="fa-search" clickFun="Prop.search()"/>
                             </div>
                         </div>
-                        <div class="hidden-xs" id="WorkTableToolbar" role="group">
-                                <#button name="业务受理" icon="fa-plus" clickFun="Work.workLock()"/>
-                                <#button name="业务处理" icon="fa-plus" clickFun="Work.doWork()"/>
+                        <div class="hidden-xs" id="PropTableToolbar" role="group">
+                            <#button name="属性管理" icon="fa-plus" clickFun="Prop.list()"/>
                         </div>
-                        <#table id="WorkTable"/>
+                        <#table id="PropTable"/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="${ctxPath}/static/modular/order/work/work.js"></script>
+<script src="${ctxPath}/static/modular/business/prop/prop.js"></script>
+<script>
+    $(function () {
+        var defaultColunms = Prop.busColumn();
+        var table = new BSTable(Prop.id, "/manage/list", defaultColunms);
+        table.setPaginationType("client");
+        Prop.table = table.init();
+    });
+
+</script>
 @}

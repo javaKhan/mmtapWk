@@ -1,0 +1,42 @@
+@layout("/common/_container.html"){
+<div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>业务属性管理</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="page-header">
+                                <h1>当前编辑：<b>${business.businessname}</b>，业务属性</h1>
+                                <input id="bid" type="hidden" value="${business.bid}" >
+                            </div>
+                        </div>
+                        <div class="hidden-xs" id="PropTableToolbar" role="group">
+                            <#button name="属性添加" icon="fa-plus" clickFun="Prop.openAddProp()"/>
+                            <#button name="属性修改" icon="fa-plus" clickFun="Prop.openPropDetail()"/>
+                            <#button name="属性删除" icon="fa-plus" clickFun="Prop.delete()"/>
+                        </div>
+                        <#table id="PropTable"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${ctxPath}/static/modular/business/prop/prop.js"></script>
+<script>
+    $(function () {
+        var defaultColunms = Prop.propColumn();
+        var table = new BSTable(Prop.id, "/prop/list", defaultColunms);
+        table.setPaginationType("client");
+        var bid = "${business.bid}";
+        Prop.bid = bid;
+        table.setQueryParams({bid:bid});
+        Prop.table = table.init();
+    });
+
+</script>
+@}

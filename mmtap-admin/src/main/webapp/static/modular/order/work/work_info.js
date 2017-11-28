@@ -86,6 +86,14 @@ WorkInfoDlg.editSubmit = function() {
     ajax.set(this.workInfoData);
     ajax.start();
 }
+WorkInfoDlg.saveTemp = function () {
+    var data = $("#propForm").serialize();
+    console.info(data);
+    $.post('/info/add',data,function (res) {
+        console.info(res);
+    });
+}
+
 
 $(function() {
 

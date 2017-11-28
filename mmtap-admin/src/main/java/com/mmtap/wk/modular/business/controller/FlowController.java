@@ -134,8 +134,8 @@ public class FlowController extends BaseController {
     public Object detail(@RequestParam Integer bid) {
         Business business = this.manageDao.selectById(bid);
         super.setAttr("business",business);
-        List<Map<String,Object>> busFlows = this.flowDao.listByBid(bid);
-        super.setAttr("flowList",busFlows);
+//        List<Map<String,Object>> busFlows = this.flowDao.listByBid(bid);
+//        super.setAttr("flowList",busFlows);
         return PREFIX + "flowstate.html";
     }
 }

@@ -20,4 +20,6 @@ public interface WorkDao extends BaseMapper<Work> {
     int lockWork(@Param("wid") String wid,@Param("uid") Integer uid);
 
     List getMyWorks(Integer uid);
+
+    Map getWorkInfo(String wid);
 }

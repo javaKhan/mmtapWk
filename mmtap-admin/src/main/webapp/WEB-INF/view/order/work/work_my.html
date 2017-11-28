@@ -3,26 +3,36 @@
     <div class="ibox-content">
         <div class="form-horizontal">
 
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>订单号</th>
+                        <th>客户</th>
+                        <th>业务类型</th>
+                        <th>业务状态</th>
+                        <th>创建人</th>
+                        <th>创建时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for(work in myworks){
+                        <tr>
+                            <td>${work.oid}</td>
+                            <td>${work.customname}</td>
+                            <td>${work.businessname}</td>
+                            <td>${work.flowname}</td>
+                            <td>${work.name}</td>
+                            <td>${work.createtime}</td>
+                            <td><a class="btn btn-info btn-sm" href="/work/work_do/${work.wid}">办理</a></td>
+                        </tr>
+                    @}
+                </tbody>
+            </table>
 
-            <div class="row">
-                <div class="col-sm-6 b-r">
-
-                </div>
-
-                <div class="col-sm-6">
-
-                </div>
-            </div>
-
-            <div class="row btn-group-m-t">
-                <div class="col-sm-10">
-                    <#button btnCss="info" name="提交" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.editSubmit()"/>
-                    <#button btnCss="danger" name="取消" id="cancel" icon="fa-eraser" clickFun="WorkInfoDlg.close()"/>
-                </div>
-            </div>
         </div>
 
     </div>
 </div>
-<script src="${ctxPath}/static/modular/order/work/work_info.js"></script>
+<!--<script src="${ctxPath}/static/modular/order/work/work_info.js"></script>-->
 @}
