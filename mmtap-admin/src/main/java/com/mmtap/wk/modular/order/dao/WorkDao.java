@@ -24,4 +24,6 @@ public interface WorkDao extends BaseMapper<Work> {
     Map getWorkInfo(String wid);
 
     void disWork(String wid);
+
+    int nextStep(@Param("wid") String wid, @Param("fid") Integer fid);
 }

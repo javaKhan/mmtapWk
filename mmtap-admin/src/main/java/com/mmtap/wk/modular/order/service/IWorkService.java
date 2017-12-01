@@ -13,4 +13,6 @@ public interface IWorkService {
     List getTodoWorks();
 
     int lockWork(String wid, Integer uid);
+
+    boolean nextStep(String wid);
 }

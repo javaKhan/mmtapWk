@@ -1,6 +1,8 @@
 package com.mmtap.wk.modular.order.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.mmtap.wk.common.constant.factory.ConstantFactory;
+import com.mmtap.wk.common.persistence.model.User;
 import com.mmtap.wk.core.shiro.ShiroKit;
 import com.mmtap.wk.modular.business.model.Flow;
 import com.mmtap.wk.modular.business.model.Trace;
@@ -18,6 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 订单Service
@@ -27,12 +32,12 @@ import java.util.Date;
  */
 @Service
 public class OrderServiceImpl implements IOrderService {
-//    @Autowired
-//    private IndentDao orderDao;
-//    @Autowired
-//    private CustomDao customDao;
-//    @Autowired
-//    private WorkDao workDao;
+    @Autowired
+    private IndentDao indentDao;
+    @Autowired
+    private CustomDao customDao;
+    @Autowired
+    private WorkDao workDao;
 
     @Transactional
     public void newOrder(Custom custom, Integer[] buss, Indent order) {
@@ -95,5 +100,19 @@ public class OrderServiceImpl implements IOrderService {
 
             }
         }
+    }
+
+
+    @Override
+    public Map bakSig(String oid) {
+        Map result = indentDao.bakOneOrderBase(oid);
+        List workList = indentDao.bakOneOrderWorks(oid);
+        result.put("works",workList);
+        return result;
+    }
+
+    @Override
+    public Map bakAll() {
+        return null;
     }
 }

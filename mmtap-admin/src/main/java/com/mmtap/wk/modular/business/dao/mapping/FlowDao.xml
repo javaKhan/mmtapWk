@@ -11,4 +11,10 @@
           select MIN(floworder) as mo from flow where bid=#{bid} )
     </select>
 
+    <select id="getNextFlow" resultType="com.mmtap.wk.modular.business.model.Flow">
+        select * from flow where bid=7 and floworder>(
+            SELECT floworder from flow
+            where bid=7 and fid=12 )
+        order by floworder LIMIT 1
+    </select>
 </mapper>

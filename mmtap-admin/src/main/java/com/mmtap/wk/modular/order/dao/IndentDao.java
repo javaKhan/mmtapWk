@@ -20,4 +20,8 @@ public interface IndentDao extends BaseMapper<Indent>{
     Indent selectById(String oid);
 
     List<Map<String,Object>> listCustomOrders(String customId);
+
+    Map bakOneOrderBase(String oid);
+
+    List bakOneOrderWorks(String oid);
 }

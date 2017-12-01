@@ -68,28 +68,25 @@ WorkInfoDlg.addSubmit = function() {
 }
 
 /**
- * 提交修改
+ * 进入业务下一流程
  */
-WorkInfoDlg.editSubmit = function() {
-
-    this.clearData();
-    this.collectData();
-
-    //提交信息
-    var ajax = new $ax(Feng.ctxPath + "/work/update", function(data){
-        Feng.success("修改成功!");
-        window.parent.Work.table.refresh();
-        WorkInfoDlg.close();
-    },function(data){
-        Feng.error("修改失败!" + data.responseJSON.message + "!");
-    });
-    ajax.set(this.workInfoData);
-    ajax.start();
+WorkInfoDlg.doNext = function() {
+    // var data =document.getElementById("wid").value; //$("#wid").val();
+    var data =$("#wid").val();
+    $.post('/work/next/'+data);
 }
-WorkInfoDlg.saveTemp = function () {
+
+/**
+ * 保存业务数据
+ */
+WorkInfoDlg.saveInfo = function () {
     var data = $("#propForm").serialize();
-    console.info(data);
     $.post('/info/add',data,function (res) {
+        if(200==res.code){
+            Feng.success("保存成功!");
+        }else {
+            Feng.error("保存失败!" + res.message + "!");
+        }
         console.info(res);
     });
 }

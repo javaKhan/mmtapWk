@@ -6,7 +6,9 @@ import com.mmtap.wk.common.exception.BussinessException;
 import com.mmtap.wk.core.base.controller.BaseController;
 import com.mmtap.wk.core.util.ToolUtil;
 import com.mmtap.wk.modular.business.model.Prop;
+import com.mmtap.wk.modular.order.dao.InfoDao;
 import com.mmtap.wk.modular.order.model.Info;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,9 @@ import java.util.Map;
 public class InfoController extends BaseController {
 
     private String PREFIX = "/order/info/";
+
+    @Autowired
+    private InfoDao infoDao;
 
     /**
      * 跳转到业务内容首页
@@ -75,7 +80,13 @@ public class InfoController extends BaseController {
         Info info = new Info();
         info.setWid(wid);
         info.setInfo(propStr);
-        info.insert();
+
+        int isExist = infoDao.isExitWorkInfo(wid);
+        if(isExist>0){
+            infoDao.updateWorkInfo(info);
+        }else {
+            infoDao.insertWorkInfo(info);
+        }
         return super.SUCCESS_TIP;
     }
 

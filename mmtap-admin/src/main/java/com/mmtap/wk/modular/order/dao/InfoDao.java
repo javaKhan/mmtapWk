@@ -12,4 +12,9 @@ import com.mmtap.wk.modular.order.model.Info;
 public interface InfoDao extends BaseMapper<Info>{
 
 
+    int isExitWorkInfo(String wid);
+
+    void updateWorkInfo(Info info);
+
+    void insertWorkInfo(Info info);
 }

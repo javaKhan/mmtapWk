@@ -1,6 +1,7 @@
 package com.mmtap.wk.modular.order.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.mmtap.wk.common.exception.BizExceptionEnum;
 import com.mmtap.wk.common.exception.BussinessException;
@@ -10,8 +11,12 @@ import com.mmtap.wk.core.shiro.ShiroKit;
 import com.mmtap.wk.core.util.ToolUtil;
 import com.mmtap.wk.modular.business.dao.PropDao;
 import com.mmtap.wk.modular.business.model.Prop;
+import com.mmtap.wk.modular.order.dao.InfoDao;
 import com.mmtap.wk.modular.order.dao.WorkDao;
+import com.mmtap.wk.modular.order.model.Info;
 import com.mmtap.wk.modular.order.service.IWorkService;
+import com.mmtap.wk.modular.order.wrapper.WorkWrapper;
+import org.apache.commons.collections.MapUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +46,8 @@ public class WorkController extends BaseController {
     private WorkDao workDao;
     @Autowired
     private PropDao propDao;
+    @Autowired
+    private InfoDao infoDao;
 
 
     /**
@@ -88,8 +95,20 @@ public class WorkController extends BaseController {
         Map workInfo = workDao.getWorkInfo(wid);
         model.addAttribute("workInfo",workInfo);
 
-        List props = propDao.selectList(new EntityWrapper<Prop>().eq("bid",workInfo.get("bid")).orderBy("proporder"));
+        List<Map<String, Object>> props = propDao.selectMaps(new EntityWrapper<Prop>().eq("bid",workInfo.get("bid")).orderBy("proporder"));
         model.addAttribute("props",props);
+
+        Info info = infoDao.selectById(wid);
+        if(null!=info && !"".equals(info.getInfo())){
+            Map infos = JSON.parseObject(info.getInfo());
+            for (Map prop : props){
+                String key = prop.get("title").toString();
+                Object text = infos.get(key);
+                if(null!=text){
+                    prop.put("text",infos.get(key));
+                }
+            }
+        }
         return PREFIX + "work_do.html";
     }
 
@@ -107,6 +126,18 @@ public class WorkController extends BaseController {
         return SUCCESS_TIP;
     }
 
+    /**
+     * 工作流程完结，流程跳转
+     * @return
+     */
+    @RequestMapping("/next/{wid}")
+    public Object workNext(@PathVariable String wid){
+        if(ToolUtil.isEmpty(wid)){
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        boolean result = workService.nextStep(wid);
+        return PREFIX + "work_edit.html";
+    }
 
 
 

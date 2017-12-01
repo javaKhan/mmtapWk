@@ -32,4 +32,8 @@
     <update id="disWork">
         UPDATE work SET doer=NULL WHERE wid=#{wid}
     </update>
+    
+    <update id="nextStep">
+      UPDATE work SET doer=NULL AND fid=#{fid} WHERE wid=#{wid}
+    </update>
 </mapper>

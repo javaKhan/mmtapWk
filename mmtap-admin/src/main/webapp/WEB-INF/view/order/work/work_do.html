@@ -54,24 +54,28 @@
                 <h4>业务信息</h4>
             </div>
             <form id="propForm" method="post">
-                <input name="wid" type="hidden" value="${workInfo.wid}" >
+                <input id="wid" name="wid" type="hidden" value="${workInfo.wid}" >
                 <div class="row">
                     @for(prop in props){
-                    <!--<div class="col-md-2">${prop.title}</div>-->
-                    <div class="col-md-6">
-                        <#input id="${prop.title}" name="${prop.title}" underline="true"/>
+                    <div class="form-group-sm">
+                        <label for="${prop.title}" class="col-sm-2 control-label" >${prop.title}</label>
+                        <div class="col-sm-4">
+                            <input id="${prop.title}" name="${prop.title}" value="${prop.text}" class="form-control" placeholder="">
+                        </div>
                     </div>
                     @}
                 </div>
             </form>
             <div class="row btn-group-m-t text-center">
                 <div class="col-sm-10">
-                    <#button btnCss="info" name="测试" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.saveTemp()"/>
-                    <#button btnCss="info" name="处理完成，下一流程!" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.editSubmit()"/>
+                    <#button btnCss="info" name="保存数据" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.saveInfo()"/>
                 </div>
             </div>
         </div>
-
+        <div class="row text-right">
+            <h3>请确认数据输入无误进行下步操作!</h3>
+            <#button btnCss="warning" name="下一流程!" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.doNext()"/>
+        </div>
     </div>
 </div>
 <script src="${ctxPath}/static/modular/order/work/work_info.js"></script>

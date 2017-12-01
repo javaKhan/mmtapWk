@@ -18,4 +18,6 @@ public interface FlowDao extends BaseMapper<Flow> {
     List<Map<String, Object>> listByBid(@Param("bid") Integer bid);
 
     Integer getFirstFlowId(Integer bid);
+
+    Flow getNextFlow(Integer bid, Integer fid);
 }

@@ -16,4 +16,14 @@
         where i.cid = c.cid and u.id = i.creater
         and i.cid =#{customId}
     </select>
+    
+    <select id="bakOneOrderBase" resultType="map">
+        SELECT * from indent o,user u ,custom c
+        WHERE  o.creater=u.id and o.cid=c.cid and o.oid=#{oid}
+    </select>
+
+    <select id="bakOneOrderWorks" resultType="map">
+        select b.businessname,f.flowname,w.price,w.workcom,i.info from business b, flow f,work w left join info i on w.wid = i.wid
+        where b.bid = w.bid and f.fid = w.fid and w.oid=#{oid}
+    </select>
 </mapper>

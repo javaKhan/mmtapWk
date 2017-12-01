@@ -33,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -64,6 +65,7 @@ public class OrderController extends BaseController {
     private IndentDao indentDao;
     @Autowired
     private TraceDao traceDao;
+
 
 
     /**
@@ -189,7 +191,7 @@ public class OrderController extends BaseController {
 
 
     /**
-     * 全量备份
+     * 备份操作页
      */
     @RequestMapping(value = "/backup")
     public Object orderBackup() {
@@ -201,8 +203,8 @@ public class OrderController extends BaseController {
      */
     @RequestMapping(value = "/baksig/{oid}")
     public ModelAndView orderBackupSig(@PathVariable String oid) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("name", "测试");
+        Map<String, Object> map = orderService.bakSig(oid);
+        map.put("filename", new SimpleDateFormat("yyyyMMddHHmm").format(new Date())+"-"+oid);
         ExcelView excelView = new SigOrderExcel();
         return new ModelAndView(excelView, map);
     }

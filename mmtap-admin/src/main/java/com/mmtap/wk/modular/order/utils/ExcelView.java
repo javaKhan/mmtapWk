@@ -20,7 +20,7 @@ public abstract class ExcelView extends AbstractXlsView {
 
     @Override
     protected void buildExcelDocument(Map<String, Object> map, Workbook workbook, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String excelName = map.get("name").toString() + ".xls";
+        String excelName = map.get("filename").toString() + ".xls";
         response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(excelName,"utf-8"));
         String Agent = request.getHeader("User-Agent");
         if (null != Agent) {

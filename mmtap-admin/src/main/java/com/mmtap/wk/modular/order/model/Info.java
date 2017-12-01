@@ -10,7 +10,7 @@ import java.io.Serializable;
  * 业务资料信息
  */
 public class Info extends Model<Info> {
-    @TableId(value="cid", type= IdType.NONE)
+    @TableId(value="wid", type= IdType.NONE)
     private String wid;
     private String info;
 
