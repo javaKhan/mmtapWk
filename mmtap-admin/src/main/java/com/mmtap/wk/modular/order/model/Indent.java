@@ -1,6 +1,8 @@
 package com.mmtap.wk.modular.order.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.Date;
  * 订单对象
  */
 public class Indent extends Model {
+    @TableId(value="oid", type= IdType.UUID)
     private String oid;
     private String cid;         //客户
     private Integer creater;    //创建者

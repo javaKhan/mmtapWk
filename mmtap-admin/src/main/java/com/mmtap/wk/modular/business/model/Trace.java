@@ -1,6 +1,8 @@
 package com.mmtap.wk.modular.business.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.Date;
  * 业务跟踪纪录
  */
 public class Trace extends Model<Trace>{
+    @TableId(value = "tid",type = IdType.AUTO)
     private int tid;
     private String oid;
 

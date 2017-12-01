@@ -7,12 +7,15 @@
                 <h3>订单信息</h3>
             </div>
             <div class="row">
-                <div class="col-md-4">订单号:${workInfo.oid}</div>
-                <div class="col-md-4">创建者:${workInfo.name}</div>
-                <div class="col-md-4">时间:${workInfo.createtime}</div>
+                <div class="col-md-1 text-right">订单号:</div>
+                <div class="col-md-3 text-left">${workInfo.oid}</div>
+                <div class="col-md-1 text-right">创建者:</div>
+                <div class="col-md-3 text-left">${workInfo.name}</div>
+                <div class="col-md-1 text-right">时间:</div>
+                <div class="col-md-3 text-left">${workInfo.createtime}</div>
             </div>
             <div class="row">
-                <div class="col-md-1">备注:</div>
+                <div class="col-md-1 text-right">备注:</div>
                 <div class="col-md-11 text-danger large">${workInfo.comments}</div>
             </div>
 
@@ -20,22 +23,30 @@
                 <h3>客户信息</h3>
             </div>
             <div class="row">
-                <div class="col-md-4">客户:${workInfo.customname}</div>
-                <div class="col-md-4">业务:${workInfo.businessname}</div>
-                <div class="col-md-4">状态:${workInfo.flowname}</div>
+                <div class="col-md-1 text-right">客户:</div>
+                <div class="col-md-3">${workInfo.customname}</div>
+                <div class="col-md-1 text-right">业务:</div>
+                <div class="col-md-3">${workInfo.businessname}</div>
+                <div class="col-md-1 text-right">状态:</div>
+                <div class="col-md-3">${workInfo.flowname}</div>
             </div>
             <div class="row">
-                <div class="col-md-4">电话:${workInfo.mobile}</div>
-                <div class="col-md-4">旺旺:${workInfo.wwid}</div>
-                <div class="col-md-4">QQ/微信:${workInfo.netid}</div>
+                <div class="col-md-1 text-right">电话:</div>
+                <div class="col-md-3">${workInfo.mobile}</div>
+                <div class="col-md-1 text-right">旺旺:</div>
+                <div class="col-md-3">${workInfo.wwid}</div>
+                <div class="col-md-1 text-right">QQ/微信:</div>
+                <div class="col-md-3">${workInfo.netid}</div>
             </div>
             <div class="row">
-                <div class="col-md-4">来源:${workInfo.come}</div>
-                <div class="col-md-4">所在地:${workInfo.place}</div>
+                <div class="col-md-1 text-right">来源:</div>
+                <div class="col-md-3">来源:${workInfo.come}</div>
+                <div class="col-md-1 text-right">所在地:</div>
+                <div class="col-md-3">${workInfo.place}</div>
                 <div class="col-md-4">地址:${workInfo.address}</div>
             </div>
             <div class="row">
-                <div class="col-md-1 large">客户信息备注:</div>
+                <div class="col-md-1 text-right">备注:</div>
                 <div class="col-md-11 text-danger text-left">${workInfo.cuscom}</div>
             </div>
 

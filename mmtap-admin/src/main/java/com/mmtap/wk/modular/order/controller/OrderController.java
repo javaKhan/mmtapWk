@@ -19,7 +19,10 @@ import com.mmtap.wk.modular.order.model.Custom;
 import com.mmtap.wk.modular.order.model.Indent;
 import com.mmtap.wk.modular.order.model.Work;
 import com.mmtap.wk.modular.order.service.IOrderService;
+import com.mmtap.wk.modular.order.utils.AllOrderExcel;
+import com.mmtap.wk.modular.order.utils.ExcelView;
 import com.mmtap.wk.modular.order.utils.OrderUtil;
+import com.mmtap.wk.modular.order.utils.SigOrderExcel;
 import com.mmtap.wk.modular.order.wrapper.OrderWraper;
 import com.mmtap.wk.modular.order.wrapper.WorkWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +31,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -181,12 +186,35 @@ public class OrderController extends BaseController {
         return super.SUCCESS_TIP;
     }
 
+
+
     /**
-     * 订单详情
+     * 全量备份
      */
-    @RequestMapping(value = "/detail")
-    @ResponseBody
-    public Object detail() {
-        return null;
+    @RequestMapping(value = "/backup")
+    public Object orderBackup() {
+        return PREFIX+"order_backup.html";
+    }
+
+    /**
+     * 单条备份处理
+     */
+    @RequestMapping(value = "/baksig/{oid}")
+    public ModelAndView orderBackupSig(@PathVariable String oid) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", "测试");
+        ExcelView excelView = new SigOrderExcel();
+        return new ModelAndView(excelView, map);
+    }
+
+    /**
+     * 单条备份处理
+     */
+    @RequestMapping(value = "/bakall")
+    public Object orderBackupAll() {
+        Map map = new HashMap();
+        map.put("name","all-order");
+        ExcelView excelView = new AllOrderExcel();
+        return new ModelAndView(excelView,map);
     }
 }

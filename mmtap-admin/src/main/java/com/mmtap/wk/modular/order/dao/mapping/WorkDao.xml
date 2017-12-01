@@ -28,4 +28,8 @@
         where w.oid=i.oid and w.bid=b.bid and w.fid = f.fid and w.creater =u.id and w.cid=c.cid
         and wid=#{wid}
     </select>
+
+    <update id="disWork">
+        UPDATE work SET doer=NULL WHERE wid=#{wid}
+    </update>
 </mapper>

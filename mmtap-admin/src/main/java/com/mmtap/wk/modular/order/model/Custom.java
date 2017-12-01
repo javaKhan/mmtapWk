@@ -2,6 +2,8 @@ package com.mmtap.wk.modular.order.model;
 
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -10,6 +12,7 @@ import java.util.Date;
  * 客户信息
  */
 public class Custom  extends Model<Custom>{
+    @TableId(value="cid", type= IdType.UUID)
     private String cid;
     private String customname;
     private String mobile;

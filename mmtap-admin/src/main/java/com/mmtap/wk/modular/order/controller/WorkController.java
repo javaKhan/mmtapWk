@@ -88,10 +88,25 @@ public class WorkController extends BaseController {
         Map workInfo = workDao.getWorkInfo(wid);
         model.addAttribute("workInfo",workInfo);
 
-        List props = propDao.selectList(new EntityWrapper<Prop>().eq("bid",workInfo.get("bid")));
+        List props = propDao.selectList(new EntityWrapper<Prop>().eq("bid",workInfo.get("bid")).orderBy("proporder"));
         model.addAttribute("props",props);
         return PREFIX + "work_do.html";
     }
+
+
+    /**
+     * 退办工作
+     */
+    @RequestMapping("/work_dis/{wid}")
+    @ResponseBody
+    public Object workDis(@PathVariable String wid) {
+        if(ToolUtil.isEmpty(wid)){
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        workDao.disWork(wid);
+        return SUCCESS_TIP;
+    }
+
 
 
 

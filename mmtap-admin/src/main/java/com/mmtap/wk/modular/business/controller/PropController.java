@@ -73,8 +73,10 @@ public class PropController extends BaseController {
     /**
      * 跳转到修改属性
      */
-    @RequestMapping("/prop_update/{propId}")
-    public String propUpdate(@PathVariable Integer propId, Model model) {
+    @RequestMapping("/prop_update/{pid}")
+    public String propUpdate(@PathVariable Integer pid, Model model) {
+        Prop prop = this.propDao.selectById(pid);
+        model.addAttribute("prop",prop);
         return PREFIX + "prop_edit.html";
     }
 
@@ -84,7 +86,7 @@ public class PropController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(@RequestParam Integer bid) {
-        List propList = propDao.selectList(new EntityWrapper().eq("bid",bid));
+        List propList = propDao.selectList(new EntityWrapper().eq("bid",bid).orderBy("proporder"));
         return propList;
     }
 
@@ -106,7 +108,8 @@ public class PropController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete() {
+    public Object delete(@RequestParam Integer pid) {
+        this.propDao.deleteById(pid);
         return SUCCESS_TIP;
     }
 
@@ -116,7 +119,14 @@ public class PropController extends BaseController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-    public Object update() {
+    public Object update(Prop prop) {
+        if(ToolUtil.isEmpty(prop)
+                || ToolUtil.isEmpty(prop.getPid())
+                || ToolUtil.isEmpty(prop.getTitle())
+                || ToolUtil.isEmpty(prop.getBid())){
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        prop.updateById();
         return super.SUCCESS_TIP;
     }
 

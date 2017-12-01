@@ -3,11 +3,13 @@
     <div class="ibox-content">
         <div class="form-horizontal">
 
-            <input type="hidden" id="id" value="${prop.id}">
+            <input type="hidden" name="pid" id="pid" value="${prop.pid}">
 
             <div class="row">
                 <div class="col-sm-6 b-r">
-
+                    <#input id="title" name="属性名称" value="${prop.title}" underline="true"/>
+                    <#input id="code" name="属性代码" value="${prop.code}" underline="true"/>
+                    <#input id="proporder" name="显示排序" value="${prop.proporder}" underline="true" />
                 </div>
 
                 <div class="col-sm-6">

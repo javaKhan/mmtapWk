@@ -29,8 +29,6 @@ Prop.propColumn = function () {
         {title: '属性名称', field: 'title', visible: true, align: 'center', valign: 'middle'},
         {title: '编码', field: 'code', visible: true, align: 'center', valign: 'middle'},
         {title: '排序', field: 'proporder', visible: true, align: 'center', valign: 'middle'},
-        // {title: '创建时间', field: 'creater', visible: true, align: 'center', valign: 'middle'},
-        // {title: '操作', field: 'createtime', visible: true, align: 'center', valign: 'middle'}
     ];
 };
 
@@ -67,6 +65,7 @@ Prop.openAddProp = function () {
  * 打开查看属性详情
  */
 Prop.openPropDetail = function () {
+    console.info(Prop.seItem);
     if (this.check()) {
         var index = layer.open({
             type: 2,
@@ -74,7 +73,7 @@ Prop.openPropDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/prop/prop_update/' + Prop.seItem.id
+            content: Feng.ctxPath + '/prop/prop_update/' + Prop.seItem.pid
         });
         this.layerIndex = index;
     }
@@ -91,7 +90,7 @@ Prop.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("propId",this.seItem.id);
+        ajax.set("pid",this.seItem.pid);
         ajax.start();
     }
 };

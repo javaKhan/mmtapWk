@@ -52,7 +52,6 @@ PropInfoDlg.collectData = function() {
  * 提交添加
  */
 PropInfoDlg.addSubmit = function() {
-
     this.clearData();
     this.collectData();
 

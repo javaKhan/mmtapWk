@@ -1,6 +1,8 @@
 package com.mmtap.wk.modular.order.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.Date;
  * 订单业务项
  */
 public class Work extends Model<Work>{
+    @TableId(value="wid", type= IdType.UUID)
     private String wid;  //工单号
     private String oid;   //订单号
     private String cid;   //客户号

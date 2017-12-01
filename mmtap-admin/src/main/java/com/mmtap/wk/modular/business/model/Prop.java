@@ -1,6 +1,8 @@
 package com.mmtap.wk.modular.business.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.enums.IdType;
 
 import java.io.Serializable;
 
@@ -8,6 +10,7 @@ import java.io.Serializable;
  * 业务属性
  */
 public class Prop extends Model<Prop>{
+    @TableId(value="pid", type= IdType.AUTO)
     private Integer pid;
     private Integer bid;
     private String title;

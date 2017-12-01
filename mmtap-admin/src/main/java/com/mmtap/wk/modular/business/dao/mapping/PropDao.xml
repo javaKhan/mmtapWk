@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mmtap.wk.modular.business.dao.PropDao">
 
+    <!--<select id="selectById" resultType="com.mmtap.wk.modular.business.model.Prop">-->
+        <!--SELECT * FROM prop WHERE pid=#{pid}-->
+    <!--</select>-->
+    <!--<delete id="deleteById">-->
+        <!--DELETE FROM prop WHERE pid=#{pid}-->
+    <!--</delete>-->
+
 </mapper>

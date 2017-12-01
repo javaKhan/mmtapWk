@@ -1,9 +1,9 @@
 @layout("/common/_container.html"){
-<div class="row" id="work">
+<div class="row">
     <div class="col-sm-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>工作管理</h5>
+                <h5>订单管理</h5>
             </div>
             <div class="ibox-content">
                 <div class="row row-lg">
@@ -13,19 +13,18 @@
                                 <#NameCon id="condition" name="名称" />
                             </div>
                             <div class="col-sm-3">
-                                <#button name="搜索" icon="fa-search" clickFun="Work.search()"/>
+                                <#button name="搜索" icon="fa-search" clickFun="Order.search()"/>
                             </div>
                         </div>
-                        <div class="hidden-xs" id="WorkTableToolbar" role="group">
-                                <#button name="业务受理" icon="fa-plus" clickFun="Work.workLock()"/>
-                                <!--<#button name="业务处理" icon="fa-plus" clickFun="Work.doWork()"/>-->
+                        <div class="hidden-xs" id="OrderTableToolbar" role="group">
+                            <a class="btn btn-warning" href="/order/bakall">全部导出</a>
                         </div>
-                        <#table id="WorkTable"/>
+                        <#table id="OrderTable"/>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script src="${ctxPath}/static/modular/order/work/work.js"></script>
+<script src="${ctxPath}/static/modular/order/order/orderbak.js"></script>
 @}
