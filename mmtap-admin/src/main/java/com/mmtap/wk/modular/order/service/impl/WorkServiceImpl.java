@@ -45,10 +45,15 @@ public class WorkServiceImpl implements IWorkService {
     public boolean nextStep(String wid) {
         Work work = workDao.selectById(wid);
         Flow flow =flowDao.getNextFlow(work.getBid(),work.getFid());
-        int res = workDao.nextStep(wid,flow.getFid());
+        int res = workDao.nextStep(wid,flow.getFid()); //有问题
         if(res>0){
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void newprice(String wid, double price) {
+        workDao.newprice(wid,price);
     }
 }

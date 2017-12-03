@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.mmtap.wk.common.constant.factory.ConstantFactory;
 import com.mmtap.wk.common.persistence.model.User;
 import com.mmtap.wk.core.shiro.ShiroKit;
+import com.mmtap.wk.modular.business.model.Business;
 import com.mmtap.wk.modular.business.model.Flow;
 import com.mmtap.wk.modular.business.model.Trace;
 import com.mmtap.wk.modular.order.dao.CustomDao;
@@ -59,7 +60,8 @@ public class OrderServiceImpl implements IOrderService {
                 if(null!=fid){
                     work.setFid(fid);
                 }
-
+                Business business = ConstantFactory.me().getBusinessInfo(bid);
+                work.setPrice(business.getBusprice());
                 work.setCid(custom.getCid());
                 work.setCreater(order.getCreater());
                 work.setCreatetime(order.getCreatetime());

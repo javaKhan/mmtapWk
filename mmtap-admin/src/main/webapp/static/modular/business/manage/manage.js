@@ -16,6 +16,7 @@ Manage.initColumn = function () {
         {field: 'selectItem', radio: true},
         {title: 'bid', field: 'bid', visible: false, align: 'center', valign: 'middle'},
         {title: '业务名称', field: 'businessname', align: 'center', valign: 'middle', sortable: true},
+        {title: '业务价格(元)', field: 'busprice', align: 'center', valign: 'middle', sortable: true},
         {title: '发布者', field: 'createName', align: 'center', valign: 'middle', sortable: true},
         {title: '创建时间', field: 'createtime', align: 'center', valign: 'middle', sortable: true}
     ];

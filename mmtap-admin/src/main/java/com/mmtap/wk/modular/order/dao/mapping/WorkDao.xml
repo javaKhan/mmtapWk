@@ -23,7 +23,7 @@
     </select>
 
     <select id="getWorkInfo" resultType="Map">
-      select w.*,i.comments,b.businessname,f.flowname,u.`name`,c.*
+      select w.*,i.comments,b.businessname,f.flowname,f.floworder,u.`name`,c.*
         from work w,indent i,business b,flow f,`user` u,custom c
         where w.oid=i.oid and w.bid=b.bid and w.fid = f.fid and w.creater =u.id and w.cid=c.cid
         and wid=#{wid}
@@ -34,6 +34,13 @@
     </update>
     
     <update id="nextStep">
-      UPDATE work SET doer=NULL AND fid=#{fid} WHERE wid=#{wid}
+      UPDATE work SET doer=NULL , fid=#{fid} WHERE wid=#{wid}
+    </update>
+
+    <update id="saveWorkCom">
+        UPDATE work set workcom=#{workcom} where wid=#{wid}
+    </update>
+    <update id="newprice">
+        UPDATE work set price=#{price} where wid=#{wid}
     </update>
 </mapper>

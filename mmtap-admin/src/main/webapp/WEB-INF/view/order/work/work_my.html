@@ -1,5 +1,9 @@
 @layout("/common/_container.html"){
-<div class="ibox float-e-margins">
+<div class="ibox float-e-margins" id="mywork">
+
+    <div class="ibox-title text-right">
+        <button class="btn btn-info" onclick="reloadMyWork();">刷新信息</button>
+    </div>
     <div class="ibox-content">
         <div class="form-horizontal">
 
@@ -35,5 +39,9 @@
 
     </div>
 </div>
-<!--<script src="${ctxPath}/static/modular/order/work/work_info.js"></script>-->
+<script>
+    function reloadMyWork() {
+        $("#mywork").load('/work/mywork');
+    }
+</script>
 @}

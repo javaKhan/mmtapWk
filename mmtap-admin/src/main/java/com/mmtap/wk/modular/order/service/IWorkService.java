@@ -15,4 +15,6 @@ public interface IWorkService {
     int lockWork(String wid, Integer uid);
 
     boolean nextStep(String wid);
+
+    void newprice(String wid, double price);
 }

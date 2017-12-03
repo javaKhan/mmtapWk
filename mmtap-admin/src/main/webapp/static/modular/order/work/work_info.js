@@ -87,9 +87,56 @@ WorkInfoDlg.saveInfo = function () {
         }else {
             Feng.error("保存失败!" + res.message + "!");
         }
-        console.info(res);
     });
 }
+
+/**
+ * 保存业务的备注信息
+ * @returns {boolean}
+ */
+WorkInfoDlg.saveComment = function () {
+
+    var wo = $("#wc-old").text();
+    var wn = $("#wc-new").val();
+    var text = wo+"&lt;br&gt;"+wn;
+    if(null==wn||''==wn){
+        Feng.info("没有内容不需要保存！");
+        return false;
+    }else {
+        var wid =$("#wid").val();
+        $.post("/work/workcom",{"wid":wid,"workcom":text},function (res) {
+            if(200==res.code){
+                Feng.success("保存成功!");
+            }else {
+                Feng.error("保存失败!" + res.message + "!");
+            }
+        });
+    }
+}
+
+WorkInfoDlg.editPrice = function () {
+    $("#price").removeAttr("readonly");
+    $("#priceBtn").removeClass("btn-warning").addClass("btn-info").attr("onclick","WorkInfoDlg.savePrice()").text("点击保存");
+}
+WorkInfoDlg.savePrice = function () {
+    var price = $("#price").attr("readonly","readonly").val();
+    var wid =$("#wid").val();
+    $("#priceBtn").removeClass("btn-info").addClass("btn-warning").attr("onclick","WorkInfoDlg.editPrice()").text("点击修改");
+    console.info(price);
+    if(null==price||""==price){
+        Feng.info("价格不能为空!");
+        return false;
+    }else {
+        $.post('/work/newprice',{'wid':wid,'price':price},function (res) {
+            if(200==res.code){
+                Feng.success("价格修改成功!");
+            }else {
+                Feng.error("价格修改失败!" + res.message + "!");
+            }
+        });
+    }
+}
+
 
 
 $(function() {

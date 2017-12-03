@@ -84,11 +84,12 @@ public class ManageController extends BaseController {
      */
     @RequestMapping(value = "/add")
     @ResponseBody
-    public Object add(@RequestParam String businessname) {
+    public Object add(@RequestParam String businessname,Double busprice) {
         Business bo = new Business();
         bo.setCreater(ShiroKit.getUser().getId());
         bo.setCreatetime(new Date());
         bo.setBusinessname(businessname);
+        bo.setBusprice(busprice);
         bo.insert();
         return super.SUCCESS_TIP;
     }

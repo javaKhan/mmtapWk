@@ -1,5 +1,8 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
+    <div class="ibox-title text-right">
+        <button class="btn btn-info" onclick="window.history.back();">返回</button>
+    </div>
     <div class="ibox-content">
         <div id="orderTrace">
             @for(trace in traces){

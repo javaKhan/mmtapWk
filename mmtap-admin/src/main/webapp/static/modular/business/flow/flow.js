@@ -16,6 +16,7 @@ Flow.initColumn = function () {
         {field: 'selectItem', radio: true},
         {title: '状态ID', field: 'bid', visible: false, align: 'center', valign: 'middle'},
         {title: '业务名称', field: 'businessname', visible: true, align: 'center', valign: 'middle'},
+        {title: '业务价格(元)', field: 'busprice', visible: true, align: 'center', valign: 'middle'},
         {title: '创建者', field: 'createName', visible: true, align: 'center', valign: 'middle'},
         {title: '创建时间', field: 'createtime', visible: true, align: 'center', valign: 'middle'},
 

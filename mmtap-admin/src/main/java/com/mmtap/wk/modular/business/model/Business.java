@@ -22,6 +22,11 @@ public class Business extends Model<Business> {
      * 业务名称
      */
     private String businessname;
+
+    /**
+     * 业务默认价格
+     */
+    private double busprice;
     /**
      * 创建人
      */
@@ -66,6 +71,14 @@ public class Business extends Model<Business> {
     @Override
     protected Serializable pkVal() {
         return this.bid;
+    }
+
+    public double getBusprice() {
+        return busprice;
+    }
+
+    public void setBusprice(double busprice) {
+        this.busprice = busprice;
     }
 
     @Override

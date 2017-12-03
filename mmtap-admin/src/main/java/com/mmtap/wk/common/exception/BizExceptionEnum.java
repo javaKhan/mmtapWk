@@ -51,7 +51,13 @@ public enum BizExceptionEnum {
 	DICT_MUST_BE_NUMBER(400,"字典的值必须为数字"),
 	REQUEST_NULL(400, "请求有错误"),
 	SESSION_TIMEOUT(400, "会话超时"),
-	SERVER_ERROR(500, "服务器异常");
+	SERVER_ERROR(500, "服务器异常"),
+
+	//自定义
+	TEXT_NULL(478, "内容不能为空");
+
+
+
 
 	BizExceptionEnum(int code, String message) {
 		this.friendlyCode = code;

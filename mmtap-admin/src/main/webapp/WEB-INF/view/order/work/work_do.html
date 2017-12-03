@@ -2,7 +2,9 @@
 <div class="ibox float-e-margins">
     <div class="ibox-content">
         <div class="form-horizontal">
-
+            <div class="ibox-title text-right">
+                <button class="btn btn-info" onclick="window.history.back();">返回</button>
+            </div>
             <div class="row">
                 <h3>订单信息</h3>
             </div>
@@ -35,15 +37,16 @@
                 <div class="col-md-3">${workInfo.mobile}</div>
                 <div class="col-md-1 text-right">旺旺:</div>
                 <div class="col-md-3">${workInfo.wwid}</div>
-                <div class="col-md-1 text-right">QQ/微信:</div>
+                <div class="col-md-1 text-right">QQ微信:</div>
                 <div class="col-md-3">${workInfo.netid}</div>
             </div>
             <div class="row">
                 <div class="col-md-1 text-right">来源:</div>
-                <div class="col-md-3">来源:${workInfo.come}</div>
+                <div class="col-md-3">${workInfo.come}</div>
                 <div class="col-md-1 text-right">所在地:</div>
                 <div class="col-md-3">${workInfo.place}</div>
-                <div class="col-md-4">地址:${workInfo.address}</div>
+                <div class="col-md-1 text-right">地址:</div>
+                <div class="col-md-3" style="word-wrap:break-word">${workInfo.address}</div>
             </div>
             <div class="row">
                 <div class="col-md-1 text-right">备注:</div>
@@ -53,8 +56,14 @@
             <div class="row">
                 <h4>业务信息</h4>
             </div>
-            <form id="propForm" method="post">
+
+            <form id="propForm" method="post" class="form-inline">
                 <input id="wid" name="wid" type="hidden" value="${workInfo.wid}" >
+                <div class="form-group">
+                    <label for="price">价格:</label>
+                    <input type="number" class="form-control" id="price" value="${workInfo.price}" readonly="true" required>
+                    <a id="priceBtn" class="btn btn-warning btn-sm" onclick="WorkInfoDlg.editPrice();">点击修改</a>
+                </div>
                 <div class="row">
                     @for(prop in props){
                     <div class="form-group-sm">
@@ -63,20 +72,65 @@
                             <input id="${prop.title}" name="${prop.title}" value="${prop.text}" class="form-control" placeholder="">
                         </div>
                     </div>
+                    @}elsefor{
+                      <div class="col-sm-12"><h5 style="margin-top: 30px">该业务没有配置其他信息!</h5></div>
                     @}
                 </div>
             </form>
+
             <div class="row btn-group-m-t text-center">
-                <div class="col-sm-10">
-                    <#button btnCss="info" name="保存数据" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.saveInfo()"/>
+                <div class="col-sm-12 text-right">
+                    <button class="btn btn-info" style="margin-top: 15px" onclick="WorkInfoDlg.saveInfo()">保存资料</button>
                 </div>
             </div>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12" id="wc-old">${workInfo.workcom}</div>
+            <div class="col-sm-10">
+                <textarea id="wc-new" class="form-control" rows="3" placeholder="请输入备注!"></textarea>
+            </div>
+            <div class="col-sm-2 text-right">
+                <button class="btn btn-info" onclick="WorkInfoDlg.saveComment()" style="margin-top: 15px">保存备注</button>
+            </div>
+        </div>
+        <hr>
         <div class="row text-right">
-            <h3>请确认数据输入无误进行下步操作!</h3>
-            <#button btnCss="warning" name="下一流程!" id="ensure" icon="fa-check" clickFun="WorkInfoDlg.doNext()"/>
+
+            <div id="smartwizard" class="col-sm-12">
+                <ul>
+                    @for(flow in flows){
+                        <li><a href="#step-1">第${flow.floworder}步<br /><small>${flow.flowname}</small></a></li>
+                        <!--<li><a href="#step-2">第2步<br /><small>深深sdfs</small></a></li>-->
+                        <!--<li><a href="#step-3">第3步<br /><small>首都发生的</small></a></li>-->
+                        <!--<li><a href="#step-4">第4步<br /><small>首都发生的饭</small></a></li>-->
+                    @}
+                </ul>
+
+            </div>
+
+            <div class="col-sm-12 text-right">
+                <a class="btn btn-warning" href="/work/next/${workInfo.wid}">下一流程</a>
+            </div>
         </div>
     </div>
 </div>
 <script src="${ctxPath}/static/modular/order/work/work_info.js"></script>
+<script src="${ctxPath}/static/js/jquery.smartWizard.min.js"></script>
+<script type="text/javascript">
+    var curr = '${workInfo.floworder-1}';
+    $(document).ready(function(){
+        $('#smartwizard').smartWizard(
+            {
+                'theme': 'dots',
+                'selected': curr ,
+                'keyNavigation': false,
+                'toolbarSettings': {
+                    'showNextButton': true,
+                    'showPreviousButton': false
+                }
+            }
+        );
+    });
+</script>
 @}

@@ -149,7 +149,6 @@ public class OrderController extends BaseController {
      * 新增订单
      */
     @RequestMapping(value = "/add")
-    @ResponseBody
     public Object add(Custom custom, Integer[] buss,String ordcom) {
         //生成客户ID
         String cid = OrderUtil.createCustomID();
@@ -166,7 +165,14 @@ public class OrderController extends BaseController {
         order.setComments(ordcom);
         //判断业务
         orderService.newOrder(custom,buss,order);
-        return super.SUCCESS_TIP;
+        return PREFIX+"order_result.html";
+    }
+
+    @RequestMapping(value = "/detail/{oid}")
+    public Object orderDetail(@PathVariable String oid,Model model){
+        Map map = new HashMap();
+
+        return PREFIX+"order_detail.html";
     }
 
     /**

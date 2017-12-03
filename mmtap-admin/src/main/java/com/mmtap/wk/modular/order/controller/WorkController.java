@@ -9,7 +9,9 @@ import com.mmtap.wk.core.base.controller.BaseController;
 import com.mmtap.wk.core.base.tips.ErrorTip;
 import com.mmtap.wk.core.shiro.ShiroKit;
 import com.mmtap.wk.core.util.ToolUtil;
+import com.mmtap.wk.modular.business.dao.FlowDao;
 import com.mmtap.wk.modular.business.dao.PropDao;
+import com.mmtap.wk.modular.business.model.Flow;
 import com.mmtap.wk.modular.business.model.Prop;
 import com.mmtap.wk.modular.order.dao.InfoDao;
 import com.mmtap.wk.modular.order.dao.WorkDao;
@@ -48,7 +50,8 @@ public class WorkController extends BaseController {
     private PropDao propDao;
     @Autowired
     private InfoDao infoDao;
-
+    @Autowired
+    private FlowDao flowDao;
 
     /**
      * 跳转到工作首页
@@ -98,6 +101,8 @@ public class WorkController extends BaseController {
         List<Map<String, Object>> props = propDao.selectMaps(new EntityWrapper<Prop>().eq("bid",workInfo.get("bid")).orderBy("proporder"));
         model.addAttribute("props",props);
 
+        List flowList = flowDao.selectList(new EntityWrapper<Flow>().eq("bid",workInfo.get("bid")).orderBy("floworder"));
+        model.addAttribute("flows",flowList);
         Info info = infoDao.selectById(wid);
         if(null!=info && !"".equals(info.getInfo())){
             Map infos = JSON.parseObject(info.getInfo());
@@ -112,6 +117,21 @@ public class WorkController extends BaseController {
         return PREFIX + "work_do.html";
     }
 
+    /**
+     * 保存业务的备注信息
+     * @param wid
+     * @param workcom
+     * @return
+     */
+    @RequestMapping("/workcom")
+    @ResponseBody
+    public Object saveWorkComments(@RequestParam String wid,String workcom){
+        if(ToolUtil.isEmpty(workcom)){
+            throw new BussinessException(BizExceptionEnum.TEXT_NULL);
+        }
+        workDao.saveWorkCom(wid,workcom);
+        return SUCCESS_TIP;
+    }
 
     /**
      * 退办工作
@@ -131,7 +151,7 @@ public class WorkController extends BaseController {
      * @return
      */
     @RequestMapping("/next/{wid}")
-    public Object workNext(@PathVariable String wid){
+    public String workNext(@PathVariable String wid){
         if(ToolUtil.isEmpty(wid)){
             throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -139,6 +159,12 @@ public class WorkController extends BaseController {
         return PREFIX + "work_edit.html";
     }
 
+    @RequestMapping("/newprice")
+    @ResponseBody
+    public Object newprice(@RequestParam String wid,@RequestParam double price){
+        workService.newprice(wid,price);
+        return SUCCESS_TIP;
+    }
 
 
 
