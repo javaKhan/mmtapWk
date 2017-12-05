@@ -20,10 +20,7 @@ import com.mmtap.wk.modular.order.service.IOrderService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 订单Service
@@ -107,6 +104,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public Map bakSig(String oid) {
+        //有订单没客户会有问题－就是产生了脏数据
         Map result = indentDao.bakOneOrderBase(oid);
         List workList = indentDao.bakOneOrderWorks(oid);
         result.put("works",workList);
@@ -114,7 +112,17 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public Map bakAll() {
-        return null;
+    public List bakBatch(Date bdate,Date edate) {
+        List result = new ArrayList();
+        List<String> orders = indentDao.bakBatch(bdate,edate);
+        for (String oid : orders){
+            result.add(bakSig(oid));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
     }
 }

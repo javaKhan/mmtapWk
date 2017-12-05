@@ -73,14 +73,17 @@ Manage.openManageDetail = function () {
  */
 Manage.delete = function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/manage/delete", function (data) {
-            Feng.success("删除成功!");
-            Manage.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("bid",this.seItem.bid);
-        ajax.start();
+        var operation = function () {
+            var ajax = new $ax(Feng.ctxPath + "/manage/delete", function (data) {
+                Feng.success("删除成功!");
+                Manage.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("bid",Manage.seItem.bid);
+            ajax.start();
+        }
+        Feng.confirm("确认删除业务["+Manage.seItem.businessname+"]?",operation);
     }
 };
 

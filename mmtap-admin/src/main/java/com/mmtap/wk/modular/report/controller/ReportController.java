@@ -20,20 +20,27 @@ public class ReportController extends BaseController {
     private String PREFIX = "/report/report/";
 
     /**
-     * 跳转到统计报表首页
+     * 业务统计
      */
     @RequestMapping("")
     public String index() {
+        //个人单日处理业务
+        //
         return PREFIX + "report.html";
     }
 
     /**
-     * 跳转到添加统计报表
+     * 数据报表
      */
-    @RequestMapping("/report_add")
-    public String reportAdd() {
-        return PREFIX + "report_add.html";
+    @RequestMapping("/daily")
+    public String reportDaily() {
+        return PREFIX + "report_daily.html";
     }
+
+
+
+
+
 
     /**
      * 跳转到修改统计报表

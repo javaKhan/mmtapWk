@@ -2,7 +2,23 @@
  * 初始化客户详情对话框
  */
 var CustomInfoDlg = {
-    customInfoData : {}
+    customInfoData : {},
+    validateFields: {
+        customname: {
+            validators: {
+                notEmpty: {
+                    message: '客户名称不能为空'
+                }
+            }
+        },
+        mobile: {
+            validators: {
+                notEmpty: {
+                    message: '联系电话不能为空'
+                }
+            }
+        }
+    }
 };
 
 /**
@@ -48,13 +64,23 @@ CustomInfoDlg.collectData = function() {
         .set('address').set('come').set('place').set('cuscom');
 }
 
+
+CustomInfoDlg.validate = function () {
+    $('#custom_info').data("bootstrapValidator").resetForm();
+    $('#custom_info').bootstrapValidator('validate');
+    return $("#custom_info").data('bootstrapValidator').isValid();
+};
+
 /**
  * 提交添加
  */
 CustomInfoDlg.addSubmit = function() {
-
     this.clearData();
     this.collectData();
+
+    if(!this.validate()){
+        return;
+    }
 
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/custom/add", function(data){
@@ -76,6 +102,10 @@ CustomInfoDlg.editSubmit = function() {
     this.clearData();
     this.collectData();
 
+    if(!this.validate()){
+        return;
+    }
+
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/custom/update", function(data){
         Feng.success("修改成功!");
@@ -89,5 +119,5 @@ CustomInfoDlg.editSubmit = function() {
 }
 
 $(function() {
-
+    Feng.initValidator("custom_info",CustomInfoDlg.validateFields);
 });

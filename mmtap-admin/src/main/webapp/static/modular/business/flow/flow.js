@@ -74,6 +74,7 @@ Flow.openFlowDetail = function () {
  */
 Flow.delete = function () {
     if (this.check()) {
+
         var ajax = new $ax(Feng.ctxPath + "/flow/delete", function (data) {
             Feng.success("删除成功!");
             Flow.table.refresh();

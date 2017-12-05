@@ -76,14 +76,17 @@ FlowState.openFlowDetail = function () {
  */
 FlowState.delete = function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/flow/delete", function (data) {
-            Feng.success("删除成功!");
-            FlowState.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("fid",this.seItem.fid);
-        ajax.start();
+        var operate = function () {
+            var ajax = new $ax(Feng.ctxPath + "/flow/delete", function (data) {
+                Feng.success("删除成功!");
+                FlowState.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("fid",FlowState.seItem.fid);
+            ajax.start();
+        }
+        Feng.confirm("确认删除业务状态["+ FlowState.seItem.flowname+"]?",operate);
     }
 };
 

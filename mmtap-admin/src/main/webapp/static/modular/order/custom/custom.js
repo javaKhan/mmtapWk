@@ -46,7 +46,7 @@ Custom.openAddCustom = function () {
     var index = layer.open({
         type: 2,
         title: '添加客户',
-        area: ['900px', '500px'], //宽高
+        area: ['800px', '420px'], //宽高
         fix: false, //不固定
         maxmin: true,
         content: Feng.ctxPath + '/custom/custom_add'
@@ -76,14 +76,17 @@ Custom.openCustomDetail = function () {
  */
 Custom.delete = function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/custom/delete", function (data) {
-            Feng.success("删除成功!");
-            Custom.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("customId",this.seItem.cid);
-        ajax.start();
+        var oper = function () {
+            var ajax = new $ax(Feng.ctxPath + "/custom/delete", function (data) {
+                Feng.success("删除成功!");
+                Custom.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("customId",Custom.seItem.cid);
+            ajax.start();
+        }
+        Feng.confirm("是否要删除客户["+Custom.seItem.customname+"]?",oper);
     }
 };
 

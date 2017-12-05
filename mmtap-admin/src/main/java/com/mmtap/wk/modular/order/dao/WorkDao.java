@@ -30,4 +30,6 @@ public interface WorkDao extends BaseMapper<Work> {
     void saveWorkCom(@Param("wid") String wid, @Param("workcom") String workcom);
 
     void newprice(@Param("wid") String wid,@Param("price") double price);
+
+    Map findWorkTraceInfo(String wid);
 }

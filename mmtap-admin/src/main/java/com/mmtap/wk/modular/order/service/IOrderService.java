@@ -2,7 +2,10 @@ package com.mmtap.wk.modular.order.service;
 
 import com.mmtap.wk.modular.order.model.Custom;
 import com.mmtap.wk.modular.order.model.Indent;
+import org.w3c.dom.stylesheets.LinkStyle;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,5 +20,5 @@ public interface IOrderService {
 
     Map bakSig(String oid);
 
-    Map bakAll();
+    List bakBatch(Date bdate,Date edate);
 }

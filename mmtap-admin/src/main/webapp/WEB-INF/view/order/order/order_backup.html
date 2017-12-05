@@ -7,18 +7,27 @@
             </div>
             <div class="ibox-content">
                 <div class="row row-lg">
-                    <div class="col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-3">
+                    <div class="col-sm-12 form-group" id="bakAllForm">
+                        <div class="col-sm-5">
+                            <#TimeCon id="bdateStr" name="开始时间" isTime="false" pattern="YYYY-MM-DD"/>
+                        </div>
+                        <div class="col-sm-5">
+                            <#TimeCon id="edateStr" name="结束时间" isTime="false" pattern="YYYY-MM-DD"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-warning bakall" onclick="Order.bakAll();">全部导出</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" style="margin-top: 30px">
+                            <div class="col-sm-5">
                                 <#NameCon id="condition" name="名称" />
                             </div>
-                            <div class="col-sm-3">
+                            <div class="col-sm-1">
                                 <#button name="搜索" icon="fa-search" clickFun="Order.search()"/>
                             </div>
-                        </div>
-                        <div class="hidden-xs" id="OrderTableToolbar" role="group">
-                            <a class="btn btn-warning" href="/order/bakall">全部导出</a>
-                        </div>
+                        <!--<div class="hidden-xs" id="OrderTableToolbar" role="group">-->
+                            <!--<a class="btn btn-warning" href="/order/bakall">全部导出</a>-->
+                        <!--</div>-->
                         <#table id="OrderTable"/>
                     </div>
                 </div>

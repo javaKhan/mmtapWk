@@ -30,6 +30,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -168,13 +169,6 @@ public class OrderController extends BaseController {
         return PREFIX+"order_result.html";
     }
 
-    @RequestMapping(value = "/detail/{oid}")
-    public Object orderDetail(@PathVariable String oid,Model model){
-        Map map = new HashMap();
-
-        return PREFIX+"order_detail.html";
-    }
-
     /**
      * 删除订单
      */
@@ -216,12 +210,14 @@ public class OrderController extends BaseController {
     }
 
     /**
-     * 单条备份处理
+     * 全部备份
      */
     @RequestMapping(value = "/bakall")
-    public Object orderBackupAll() {
+    public Object orderBackupAll(@RequestParam Date bdate,@RequestParam Date edate) {
         Map map = new HashMap();
-        map.put("name","all-order");
+        List<Map> orderList = orderService.bakBatch(bdate,edate);
+        map.put("filename",new SimpleDateFormat("yyyyMMddHHmm").format(new Date())+"-batch");
+        map.put("orders",orderList);
         ExcelView excelView = new AllOrderExcel();
         return new ModelAndView(excelView,map);
     }

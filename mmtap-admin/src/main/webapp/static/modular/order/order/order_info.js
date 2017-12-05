@@ -2,7 +2,30 @@
  * 初始化订单详情对话框
  */
 var OrderInfoDlg = {
-    orderInfoData : {}
+    orderInfoData : {},
+    validateFields: {
+        customname: {
+            validators: {
+                notEmpty: {
+                    message: '客户名称不能为空'
+                }
+            }
+        },
+        mobile: {
+            validators: {
+                notEmpty: {
+                    message: '联系电话不能为空'
+                }
+            }
+        },
+        buss: {
+            validators: {
+                notEmpty: {
+                    message: '联系电话不能为空'
+                }
+            }
+        }
+    }
 };
 
 /**
@@ -54,23 +77,39 @@ OrderInfoDlg.collectData = function() {
 }
 
 /**
+ * 校验
+ */
+// OrderInfoDlg.validate = function () {
+//     $('#order_info_form').data("bootstrapValidator").resetForm();
+//     $('#order_info_form').bootstrapValidator('validate');
+//     var res = $("#order_info_form").data('bootstrapValidator').isValid();
+//     console.info(res);
+//     return res;
+// };
+
+/**
  * 提交添加
  */
-OrderInfoDlg.addSubmit = function() {
-    this.clearData();
-    this.collectData();
-
-    //提交信息
-    var ajax = new $ax(Feng.ctxPath + "/order/add", function(data){
-        Feng.success("添加成功!");
-        window.parent.Order.table.refresh();
-        OrderInfoDlg.close();
-    },function(data){
-        Feng.error("添加失败!" + data.responseJSON.message + "!");
-    });
-    ajax.set(this.orderInfoData);
-    ajax.start();
-}
+// OrderInfoDlg.addSubmit = function() {
+//     this.clearData();
+//     this.collectData();
+//     var bus = $("input[name='buss']");
+//     console.info(bus);
+//     if(!this.validate()){
+//         return;
+//     }
+//
+//     //提交信息
+//     var ajax = new $ax(Feng.ctxPath + "/order/add", function(data){
+//         Feng.success("添加成功!");
+//         window.parent.Order.table.refresh();
+//         OrderInfoDlg.close();
+//     },function(data){
+//         Feng.error("添加失败!" + data.responseJSON.message + "!");
+//     });
+//     ajax.set(this.orderInfoData);
+//     ajax.start();
+// }
 
 /**
  * 提交修改
@@ -79,6 +118,10 @@ OrderInfoDlg.editSubmit = function() {
 
     this.clearData();
     this.collectData();
+
+    if(!this.validate()){
+        return;
+    }
 
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/order/update", function(data){
@@ -93,5 +136,5 @@ OrderInfoDlg.editSubmit = function() {
 }
 
 $(function() {
-
+    Feng.initValidator("order_info_form",OrderInfoDlg.validateFields);
 });

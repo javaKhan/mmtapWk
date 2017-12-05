@@ -20,4 +20,5 @@ public interface CustomDao extends BaseMapper<Custom> {
     List<Map<String, Object>> list(@Param("condition") String condition);
 
     int updateCustom(Custom custom);
+
 }

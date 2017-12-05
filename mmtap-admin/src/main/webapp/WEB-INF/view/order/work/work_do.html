@@ -1,10 +1,10 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
+    <div class="ibox-title text-right">
+        <button class="btn btn-info" onclick="window.history.back();">返回</button>
+    </div>
     <div class="ibox-content">
         <div class="form-horizontal">
-            <div class="ibox-title text-right">
-                <button class="btn btn-info" onclick="window.history.back();">返回</button>
-            </div>
             <div class="row">
                 <h3>订单信息</h3>
             </div>
@@ -59,17 +59,23 @@
 
             <form id="propForm" method="post" class="form-inline">
                 <input id="wid" name="wid" type="hidden" value="${workInfo.wid}" >
-                <div class="form-group">
-                    <label for="price">价格:</label>
-                    <input type="number" class="form-control" id="price" value="${workInfo.price}" readonly="true" required>
-                    <a id="priceBtn" class="btn btn-warning btn-sm" onclick="WorkInfoDlg.editPrice();">点击修改</a>
+
+                <div class="row" style="border-bottom: solid 1px grey;">
+                    <div class="col-sm-12">
+                        <div class="form-group" style="margin-left: 30px;line-height: 40px;">
+                            <label for="price">价格:</label>
+                            <input type="number" class="form-control" id="price" value="${workInfo.price}" readonly="true" required>
+                            <a id="priceBtn" class="btn btn-warning btn-sm" onclick="WorkInfoDlg.editPrice();">点击修改</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="row">
+
+                <div class="row" style="padding-top: 20px">
                     @for(prop in props){
                     <div class="form-group-sm">
                         <label for="${prop.title}" class="col-sm-2 control-label" >${prop.title}</label>
                         <div class="col-sm-4">
-                            <input id="${prop.title}" name="${prop.title}" value="${prop.text}" class="form-control" placeholder="">
+                            <input id="${prop.title}" name="${prop.title}" value="${prop.text}" class="form-control">
                         </div>
                     </div>
                     @}elsefor{

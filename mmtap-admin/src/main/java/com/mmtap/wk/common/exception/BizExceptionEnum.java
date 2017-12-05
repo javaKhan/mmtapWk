@@ -54,7 +54,8 @@ public enum BizExceptionEnum {
 	SERVER_ERROR(500, "服务器异常"),
 
 	//自定义
-	TEXT_NULL(478, "内容不能为空");
+	TEXT_NULL(478, "内容不能为空"),
+	ORDER_NOT_NULL(479, "该客户已经有订单!");
 
 
 

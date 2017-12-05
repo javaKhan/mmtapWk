@@ -8,6 +8,22 @@ var Order = {
     layerIndex: -1
 };
 
+Order.validateFields = {
+    bdate: {
+        validators: {
+            notEmpty: {
+                message: '起始时间不能为空!'
+            }
+        }
+    },
+    edate: {
+        validators: {
+            notEmpty: {
+                message: '结束时间不能为空'
+            }
+        }
+    },
+}
 /**
  * 初始化表格的列
  */
@@ -51,9 +67,39 @@ window.operateEvents = {
         location.href = '/order/baksig/'+ row.oid;
     },
     'click .bakall': function (e, value, row, index) {
-        location.href = '/order/order_state/'+ row.oid;
+        console.info("ssss")
+        location.href = '/order/bakall/'+ row.oid;
     }
 };
+
+/**
+ * 点击事件响应
+ */
+Order.bakAll =function () {
+    var bdateVal = $("#bdateStr").val();
+    var edateVal = $("#edateStr").val();
+    if(''==bdateVal || ''==edateVal){
+        Feng.info("时间不能为空!")
+    }else {
+        var myform = $("<form></form>");
+        myform.attr('method','post');
+        myform.attr('action',"/order/bakall");
+
+        var myBdate = $("<input type='hidden' name='bdate' />");
+        var myEdate = $("<input type='hidden' name='edate' />");
+
+        myBdate.attr('value',bdateVal);
+        myEdate.attr('value',edateVal);
+        myform.append(myBdate);
+        myform.append(myEdate);
+        myform.appendTo('body').submit();
+    }
+
+}
+
+Order.bakAllPost =function () {
+
+}
 
 
 
@@ -64,4 +110,6 @@ $(function () {
     table.setPaginationType("client");
     table.setClickToSelect(true);
     Order.table = table.init();
+
+    // Feng.initValidator("bakAllForm",Order.validateFields);
 });

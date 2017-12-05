@@ -63,6 +63,7 @@ public class WorkController extends BaseController {
 
     /**
      * 受理工作
+     * 要有日志
      */
     @RequestMapping("/work_lock")
     @ResponseBody
@@ -142,12 +143,13 @@ public class WorkController extends BaseController {
         if(ToolUtil.isEmpty(wid)){
             throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
         }
-        workDao.disWork(wid);
+        workService.disWork(wid);
         return SUCCESS_TIP;
     }
 
     /**
      * 工作流程完结，流程跳转
+     * 业务日志
      * @return
      */
     @RequestMapping("/next/{wid}")
@@ -156,9 +158,15 @@ public class WorkController extends BaseController {
             throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
         }
         boolean result = workService.nextStep(wid);
-        return PREFIX + "work_edit.html";
+        return PREFIX + "work_succes.html";
     }
 
+    /**
+     * 自定义价格
+     * @param wid
+     * @param price
+     * @return
+     */
     @RequestMapping("/newprice")
     @ResponseBody
     public Object newprice(@RequestParam String wid,@RequestParam double price){
@@ -194,40 +202,40 @@ public class WorkController extends BaseController {
         return todoWorks;
     }
 
-    /**
-     * 新增工作
-     */
-    @RequestMapping(value = "/add")
-    @ResponseBody
-    public Object add() {
-        return super.SUCCESS_TIP;
-    }
-
-    /**
-     * 删除工作
-     */
-    @RequestMapping(value = "/delete")
-    @ResponseBody
-    public Object delete() {
-        return SUCCESS_TIP;
-    }
-
-
-    /**
-     * 修改工作
-     */
-    @RequestMapping(value = "/update")
-    @ResponseBody
-    public Object update() {
-        return super.SUCCESS_TIP;
-    }
-
-    /**
-     * 工作详情
-     */
-    @RequestMapping(value = "/detail")
-    @ResponseBody
-    public Object detail() {
-        return null;
-    }
+//    /**
+//     * 新增工作
+//     */
+//    @RequestMapping(value = "/add")
+//    @ResponseBody
+//    public Object add() {
+//        return super.SUCCESS_TIP;
+//    }
+//
+//    /**
+//     * 删除工作
+//     */
+//    @RequestMapping(value = "/delete")
+//    @ResponseBody
+//    public Object delete() {
+//        return SUCCESS_TIP;
+//    }
+//
+//
+//    /**
+//     * 修改工作
+//     */
+//    @RequestMapping(value = "/update")
+//    @ResponseBody
+//    public Object update() {
+//        return super.SUCCESS_TIP;
+//    }
+//
+//    /**
+//     * 工作详情
+//     */
+//    @RequestMapping(value = "/detail")
+//    @ResponseBody
+//    public Object detail() {
+//        return null;
+//    }
 }

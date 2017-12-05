@@ -85,14 +85,17 @@ Prop.openPropDetail = function () {
  */
 Prop.delete = function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/prop/delete", function (data) {
-            Feng.success("删除成功!");
-            Prop.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("pid",this.seItem.pid);
-        ajax.start();
+        var ope = function () {
+            var ajax = new $ax(Feng.ctxPath + "/prop/delete", function (data) {
+                Feng.success("删除成功!");
+                Prop.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("pid",Prop.seItem.pid);
+            ajax.start();
+        }
+        Feng.confirm("确认删除属性["+Prop.seItem.title+"]?",ope)
     }
 };
 

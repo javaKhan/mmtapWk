@@ -1,13 +1,15 @@
 @layout("/common/_container.html"){
 <div class="ibox float-e-margins">
     <div class="ibox-content">
-        <div class="form-horizontal">
+        <div class="form-horizontal" id="custom_info">
 
             <input type="hidden" id="cid" value="${custom.cid}">
 
             <div class="row"><div class="col-md-12"><h3>客户资料信息</h3></div></div>
             <div class="col-md-5 b-r">
                 <#input id="customname" name="客户名称" underline="true" value="${custom.customname}"/>
+                <#input id="mobile" name="联系电话" underline="true" value="${custom.mobile}"/>
+
                 <div class="form-group">
                     <label for="wwid" class="col-sm-3 control-label">旺旺号码</label>
                     <div class="col-sm-9">
@@ -29,12 +31,9 @@
                     </div>
                 </div>
                 <div class="hr-line-dashed"></div>
-                <!--<#input id="wwid" name="旺旺号码" underline="true" vaule="${custom.wwid}"/>-->
-                <!--<#input id="come" name="客户来源" underline="true" vaule="${custom.come}"/>-->
-                <!--<#input id="address" name="联系地址" underline="true" vaule="${custom.address}"/>-->
             </div>
             <div class="col-md-5">
-                <#input id="mobile" name="联系电话" underline="true" value="${custom.mobile}"/>
+
                 <#input id="netid" name="QQ/微信" underline="true" value="${custom.netid}"/>
                 <#input id="place" name="客户所在地" underline="true" value="${custom.place}"/>
             </div>

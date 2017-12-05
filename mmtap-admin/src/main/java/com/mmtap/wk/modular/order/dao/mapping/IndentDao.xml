@@ -26,4 +26,8 @@
         select b.businessname,f.flowname,w.price,w.workcom,i.info from business b, flow f,work w left join info i on w.wid = i.wid
         where b.bid = w.bid and f.fid = w.fid and w.oid=#{oid}
     </select>
+
+    <select id="bakBatch" resultType="String">
+        SELECT oid from indent WHERE createtime BETWEEN #{bdate} and #{edate}
+    </select>
 </mapper>

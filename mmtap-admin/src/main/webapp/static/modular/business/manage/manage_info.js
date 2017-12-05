@@ -2,7 +2,23 @@
  * 初始化业务中心详情对话框
  */
 var ManageInfoDlg = {
-    manageInfoData : {}
+    manageInfoData : {},
+    validateFields: {
+        businessname: {
+            validators: {
+                notEmpty: {
+                    message: '业务名称不能为空'
+                }
+            }
+        },
+        busprice: {
+            validators: {
+                notEmpty: {
+                    message: '业务价格不能为空'
+                }
+            }
+        }
+    }
 };
 
 /**
@@ -47,6 +63,13 @@ ManageInfoDlg.collectData = function() {
     this.set('bid').set('businessname').set("busprice");
 }
 
+ManageInfoDlg.validate = function () {
+    $('#manage_info').data("bootstrapValidator").resetForm();
+    $('#manage_info').bootstrapValidator('validate');
+    return $("#manage_info").data('bootstrapValidator').isValid();
+};
+
+
 /**
  * 提交添加
  */
@@ -54,6 +77,10 @@ ManageInfoDlg.addSubmit = function() {
 
     this.clearData();
     this.collectData();
+
+    if (!this.validate()) {
+        return;
+    }
 
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/manage/add", function(data){
@@ -88,5 +115,5 @@ ManageInfoDlg.editSubmit = function() {
 }
 
 $(function() {
-
+    Feng.initValidator("manage_info", ManageInfoDlg.validateFields)
 });

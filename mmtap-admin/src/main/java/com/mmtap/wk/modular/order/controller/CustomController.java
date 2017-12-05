@@ -1,6 +1,7 @@
 package com.mmtap.wk.modular.order.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.mmtap.wk.common.exception.BizExceptionEnum;
 import com.mmtap.wk.common.exception.BussinessException;
 import com.mmtap.wk.core.base.controller.BaseController;
@@ -107,6 +108,11 @@ public class CustomController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     public Object delete(@RequestParam String customId) {
+        //如果该客户有订单的情况下不能删除
+        int ords = indentDao.selectCount(new EntityWrapper<Indent>().eq("cid",customId));
+        if(ords>0){
+            throw  new BussinessException(BizExceptionEnum.ORDER_NOT_NULL);
+        }
         customDao.deleteById(customId);
         return SUCCESS_TIP;
     }
