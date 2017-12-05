@@ -11,10 +11,7 @@
           select MIN(floworder) as mo from flow where bid=#{bid} )
     </select>
 
-    <select id="getNextFlow" resultType="com.mmtap.wk.modular.business.model.Flow">
-        select * from flow where bid=#{bid} and floworder>(
-            SELECT floworder from flow
-            where bid=#{bid} and fid=#{fid} )
-        order by floworder LIMIT 1
+    <select id="sortFlowList" resultType="com.mmtap.wk.modular.business.model.Flow">
+        SELECT * from flow where bid = #{bid} order by floworder
     </select>
 </mapper>
