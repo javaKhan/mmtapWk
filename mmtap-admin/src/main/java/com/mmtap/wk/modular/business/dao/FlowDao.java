@@ -19,5 +19,5 @@ public interface FlowDao extends BaseMapper<Flow> {
 
     Integer getFirstFlowId(Integer bid);
 
-    Flow sortFlowList(@Param("bid") Integer bid);
+    List<Flow> sortFlowList(@Param("bid") Integer bid);
 }

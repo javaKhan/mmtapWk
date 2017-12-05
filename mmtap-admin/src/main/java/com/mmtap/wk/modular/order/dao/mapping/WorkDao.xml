@@ -4,7 +4,7 @@
     <select id="getTodoWorks" parameterType="java.util.List"  resultType="Map">
       SELECT w.*,f.flowname,b.businessname,c.customname,u.`name` from work w,flow f,business b,custom c,`user` u
       where w.fid = f.fid and w.bid = f.bid and b.bid = w.bid and c.cid = w.cid and w.creater = u.id and w.doer IS NULL
-      and f.flowrole in
+        and isend = false and f.flowrole in
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -43,5 +43,7 @@
     <update id="newprice">
         UPDATE work set price=#{price} where wid=#{wid}
     </update>
-
+    <update id="finishWork">
+        UPDATE  work set isend = true where wid = #{wid}
+    </update>
 </mapper>

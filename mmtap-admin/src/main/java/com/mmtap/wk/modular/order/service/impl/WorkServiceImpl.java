@@ -1,5 +1,6 @@
 package com.mmtap.wk.modular.order.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.mmtap.wk.common.constant.factory.ConstantFactory;
 import com.mmtap.wk.core.shiro.ShiroKit;
 import com.mmtap.wk.modular.business.dao.FlowDao;
@@ -53,8 +54,8 @@ public class WorkServiceImpl implements IWorkService {
         Trace trace = new Trace();
         trace.setOid(MapUtils.getString(info,"oid"));
         trace.setCreatetime(new Date());
-        trace.setDoer(uid);
-        trace.setDoername(MapUtils.getString(info,"name"));
+        trace.setDoer(ShiroKit.getUser().getId());
+        trace.setDoername(ShiroKit.getUser().getName());
         trace.setCid(MapUtils.getString(info,"cid"));
         trace.setCusname(MapUtils.getString(info,"customname"));
 
@@ -80,39 +81,54 @@ public class WorkServiceImpl implements IWorkService {
     public boolean nextStep(String wid) {
 
         Map info = workDao.getWorkInfo(wid); //获取业务日志信息备用
-        //TOdo 业务日志
-        Work work = workDao.selectById(wid);
-        Flow flow =flowDao.getNextFlow(work.getBid(),work.getFid());
-        int res = workDao.nextStep(wid,flow.getFid()); //有问题-最后一步时
+        int currentFid =  MapUtils.getIntValue(info,"fid");
+        //获取了所有的业务状态信息
+        List<Flow> sortFlows = (List) flowDao.sortFlowList(MapUtils.getIntValue(info,"bid"));
+        Flow nextFlow = null;
+        boolean isLastState = false;
+        for(int i=0;i<sortFlows.size()-1;i++){
+            Flow tempFlow = sortFlows.get(i);
+            if(tempFlow.getFid()==currentFid ){
+                nextFlow = sortFlows.get(i+1);
+                workDao.nextStep(wid,nextFlow.getFid()); //有问题-最后一步时
+            }
+            if((sortFlows.size()-1 ==i) || (sortFlows.size()==i+1)){
+                isLastState = true;  //判断出是最后一步：应该完结具体业务
+            }
+        }
+
+        if (isLastState){
+            workDao.finishWork(wid);
+        }
+
 
         /**
          *  业务日志部分
-         *
          */
-        Trace trace = new Trace();
-        trace.setOid(work.getOid());
-        trace.setCreatetime(new Date());
-        trace.setDoer(ShiroKit.getUser().getId());
-        trace.setDoername(MapUtils.getString(info,"name"));
-        trace.setCid(MapUtils.getString(info,"cid"));
-        trace.setCusname(MapUtils.getString(info,"customname"));
+        {
+            Trace trace = new Trace();
+            trace.setOid(MapUtils.getString(info,"oid"));
+            trace.setCreatetime(new Date());
+            trace.setDoer(ShiroKit.getUser().getId());
+            trace.setDoername(ShiroKit.getUser().getName());
+            trace.setCid(MapUtils.getString(info,"cid"));
+            trace.setCusname(MapUtils.getString(info,"customname"));
 
-        trace.setWid(wid);
-        trace.setWorkname(MapUtils.getString(info,"businessname"));
-        trace.setBs(MapUtils.getIntValue(info,"fid"));
-        trace.setCs(flow.getFid());  //新增业务当前务状态为最小值
-        trace.setBsname(MapUtils.getString(info,"flowname"));
-        trace.setCsname(flow.getFlowname());
-        trace.setMsg("时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trace.getCreatetime())
-                +"    操作员:"+trace.getDoername()+ "   处理完成业务["+trace.getWorkname()+"]    状态由["+trace.getBsname()+"]变更为:"+trace.getCsname());
-        //日志写入
-        trace.insert();
-
-        if(res>0){
-            return true;
+            trace.setWid(wid);
+            trace.setWorkname(MapUtils.getString(info,"businessname"));
+            trace.setBs(MapUtils.getIntValue(info,"fid"));
+            trace.setCs(nextFlow.getFid());  //新增业务当前务状态为最小值
+            trace.setBsname(MapUtils.getString(info,"flowname"));
+            trace.setCsname(nextFlow.getFlowname());
+            trace.setMsg("时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trace.getCreatetime())
+                    +"    操作员:"+trace.getDoername()+ "   处理完成业务["+trace.getWorkname()+"]    状态由["+trace.getBsname()+"]变更为:"+trace.getCsname());
+            //日志写入
+            trace.insert();
         }
-        return false;
+
+        return true;
     }
+
 
     @Override
     public void newprice(String wid, double price) {
@@ -122,13 +138,12 @@ public class WorkServiceImpl implements IWorkService {
         workDao.newprice(wid,price);
         /**
          *  业务日志部分
-         *
          */
         Trace trace = new Trace();
         trace.setOid(MapUtils.getString(info,"oid"));
         trace.setCreatetime(new Date());
         trace.setDoer(ShiroKit.getUser().getId());
-        trace.setDoername(MapUtils.getString(info,"name"));
+        trace.setDoername(ShiroKit.getUser().getName());
         trace.setCid(MapUtils.getString(info,"cid"));
         trace.setCusname(MapUtils.getString(info,"customname"));
 
@@ -152,7 +167,7 @@ public class WorkServiceImpl implements IWorkService {
         trace.setOid(MapUtils.getString(info,"oid"));
         trace.setCreatetime(new Date());
         trace.setDoer(ShiroKit.getUser().getId());
-        trace.setDoername(MapUtils.getString(info,"name"));
+        trace.setDoername(ShiroKit.getUser().getName());
         trace.setCid(MapUtils.getString(info,"cid"));
         trace.setCusname(MapUtils.getString(info,"customname"));
 
