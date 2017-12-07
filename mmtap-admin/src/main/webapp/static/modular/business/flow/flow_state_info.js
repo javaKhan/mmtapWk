@@ -3,7 +3,30 @@
  */
 var FlowInfoDlg = {
     roleTree :null,
-    flowInfoData : {}
+    flowInfoData : {},
+    validateFields: {
+        flowname: {
+            validators: {
+                notEmpty: {
+                    message: '流程名称不能为空'
+                }
+            }
+        },
+        floworder: {
+            validators: {
+                notEmpty: {
+                    message: '流程排序不能为空'
+                }
+            }
+        },
+        roleText: {
+            validators: {
+                notEmpty: {
+                    message: '处理角色不能为空'
+                }
+            }
+        }
+    }
 };
 
 /**
@@ -47,6 +70,15 @@ FlowInfoDlg.close = function() {
 FlowInfoDlg.collectData = function() {
     this.set('fid').set('bid',window.parent.FlowState.busId).set('flowname').set('floworder').set('flowrole');
 }
+/**
+ * 校验输入
+ * @returns {*|jQuery}
+ */
+FlowInfoDlg.validate = function () {
+    $('#flow_state_form').data("bootstrapValidator").resetForm();
+    $('#flow_state_form').bootstrapValidator('validate');
+    return $("#flow_state_form").data('bootstrapValidator').isValid();
+};
 
 /**
  * 提交添加
@@ -55,6 +87,9 @@ FlowInfoDlg.addSubmit = function() {
 
     this.clearData();
     this.collectData();
+    if (!this.validate()) {
+        return;
+    }
 
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/flow/add", function(data){
@@ -76,7 +111,9 @@ FlowInfoDlg.editSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/flow/update", function(data){
         Feng.success("修改成功!");
@@ -105,4 +142,6 @@ $(function() {
     roleNameTree.bindOnClick(FlowInfoDlg.onClickPName);
     roleNameTree.init();
     FlowInfoDlg.roleTree = roleNameTree;
+
+    Feng.initValidator("flow_state_form",FlowInfoDlg.validateFields);
 });

@@ -13,7 +13,7 @@ var Work = {
  */
 Work.initColumn = function () {
     return [
-        {field: 'selectItem', radio: true},
+        {field: 'selectItem', radio: false},
         {title: 'id', field: 'wid', visible: false, align: 'center', valign: 'middle'},
         {title: '订单号', field: 'oid', visible: true, align: 'center', valign: 'middle'},
         {title: '客户', field: 'customname', visible: true, align: 'center', valign: 'middle'},
@@ -33,7 +33,7 @@ Work.check = function () {
         Feng.info("请先选中表格中的某一记录！");
         return false;
     }else{
-        Work.seItem = selected[0];
+        Work.seItem = selected;
         return true;
     }
 };
@@ -44,14 +44,20 @@ Work.check = function () {
  */
 Work.workLock =function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/work/work_lock", function (data) {
-            Feng.success("受理成功!");
-            Work.table.refresh();
-        }, function (data) {
-            Feng.error("受理失败!" + data.responseJSON.message + "!");
+        console.info(Work.seItem);
+        var widList = [];
+        for (tmp in Work.seItem){
+            widList.push(Work.seItem[tmp].wid);
+        }
+        console.info(widList);
+        $.post('/work/work_lock',{'wids':widList.toString()},function (res) {
+            if(res.code ==200){
+                Feng.success("受理成功！")
+                Work.table.refresh();
+            }else {
+                Feng.error("受理失败!" + data.responseJSON.message + "!");
+            }
         });
-        ajax.set("wid",this.seItem.wid);
-        ajax.start();
     }
 }
 

@@ -43,37 +43,47 @@ public class WorkServiceImpl implements IWorkService {
 
     @Override
     @Transactional
-    public synchronized int  lockWork(String wid, Integer uid) {
-        //TODO 业务日志
-        /**
-         *  业务日志部分
-         *
-         */
-        Map info = workDao.getWorkInfo(wid);
+    public synchronized int  lockWork(String[] wids, Integer uid) {
+        int res = 0;
+        for(String wid: wids){
+            //TODO 业务日志
+            /**
+             *  业务日志部分
+             *
+             */
+            Map info = workDao.getWorkInfo(wid);
 
-        Trace trace = new Trace();
-        trace.setOid(MapUtils.getString(info,"oid"));
-        trace.setCreatetime(new Date());
-        trace.setDoer(ShiroKit.getUser().getId());
-        trace.setDoername(ShiroKit.getUser().getName());
-        trace.setCid(MapUtils.getString(info,"cid"));
-        trace.setCusname(MapUtils.getString(info,"customname"));
+            Trace trace = new Trace();
+            trace.setOid(MapUtils.getString(info,"oid"));
+            trace.setCreatetime(new Date());
+            trace.setDoer(ShiroKit.getUser().getId());
+            trace.setDoername(ShiroKit.getUser().getName());
+            trace.setCid(MapUtils.getString(info,"cid"));
+            trace.setCusname(MapUtils.getString(info,"customname"));
 
-        trace.setWid(wid);
-        trace.setWorkname(MapUtils.getString(info,"businessname"));
+            trace.setWid(wid);
+            trace.setWorkname(MapUtils.getString(info,"businessname"));
 
-        int fid =  MapUtils.getIntValue(info,"fid");
-        String state = MapUtils.getString(info,"flowname");
-        trace.setBs(fid);  //新增业务上一业务状态为最小值
-        trace.setCs(fid);  //新增业务当前务状态为最小值
-        trace.setBsname(state);
-        trace.setCsname(state);
-        trace.setMsg("时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trace.getCreatetime())
-                +"    操作员:"+trace.getDoername()+ "申办业务["+trace.getWorkname()+"]    状态为:"+trace.getCsname());
-        //日志写入
-        trace.insert();
+            int fid =  MapUtils.getIntValue(info,"fid");
+            String state = MapUtils.getString(info,"flowname");
+            trace.setBs(fid);  //新增业务上一业务状态为最小值
+            trace.setCs(fid);  //新增业务当前务状态为最小值
+            trace.setBsname(state);
+            trace.setCsname(state);
+            trace.setMsg("时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trace.getCreatetime())
+                    +"    操作员:"+trace.getDoername()+ "申办业务["+trace.getWorkname()+"]    状态为:"+trace.getCsname());
+            //日志写入
+            trace.insert();
+            workDao.lockWork(wid,uid);
+            res++;
+        }
 
-        return workDao.lockWork(wid,uid);
+        if(res==wids.length){
+            return res;
+        }
+
+
+        return 0;
     }
 
     @Override

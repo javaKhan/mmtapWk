@@ -67,9 +67,9 @@ public class WorkController extends BaseController {
      */
     @RequestMapping("/work_lock")
     @ResponseBody
-    public Object workLock(@RequestParam String wid) {
+    public Object workLock(@RequestParam(value = "wids") String[] wids) {
         Integer uid = ShiroKit.getUser().getId();
-        int res = workService.lockWork(wid,uid);
+        int res = workService.lockWork(wids,uid);
         if(res>0){
             return SUCCESS_TIP;
         }
