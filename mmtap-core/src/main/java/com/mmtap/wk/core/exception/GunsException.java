@@ -1,7 +1,7 @@
 package com.mmtap.wk.core.exception;
 
 /**
- * @author fengshuonan
+ * @author imkzp.com
  * @Description 业务异常的封装
  * @date 2016年11月12日 下午5:05:10
  */

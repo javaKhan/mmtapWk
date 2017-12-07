@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 字典的dao
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年2月13日 下午11:10:24
  */
 public interface DictDao {
@@ -26,7 +26,7 @@ public interface DictDao {
     /**
      * 查询字典列表
      * 
-     * @author fengshuonan
+     * @author imkzp.com
      * @Date 2017/4/26 13:04
      */
     List<Map<String,Object>> list(@Param("condition") String conditiion);

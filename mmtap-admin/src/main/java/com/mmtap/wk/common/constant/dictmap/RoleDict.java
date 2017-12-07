@@ -5,7 +5,7 @@ import com.mmtap.wk.common.constant.dictmap.base.AbstractDictMap;
 /**
  * 角色的字典
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-05-06 15:01
  */
 public class RoleDict extends AbstractDictMap {

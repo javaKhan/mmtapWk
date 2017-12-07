@@ -6,7 +6,7 @@ import com.mmtap.wk.modular.business.service.IPropService;
 /**
  * 属性Service
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017-11-28 14:24:18
  */
 @Service

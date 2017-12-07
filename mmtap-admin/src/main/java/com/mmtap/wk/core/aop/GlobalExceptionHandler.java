@@ -31,7 +31,7 @@ import static com.mmtap.wk.core.support.HttpKit.getRequest;
 /**
  * 全局的的异常拦截器（拦截所有的控制器）（带有@RequestMapping注解的方法上都会拦截）
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2016年11月12日 下午3:19:56
  */
 @ControllerAdvice
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     /**
      * 拦截业务异常
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(BussinessException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
     /**
      * 用户未登录
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -69,7 +69,7 @@ public class GlobalExceptionHandler {
     /**
      * 账号被冻结
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(DisabledAccountException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -83,7 +83,7 @@ public class GlobalExceptionHandler {
     /**
      * 账号密码错误
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(CredentialsException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
     /**
      * 验证码错误
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(InvalidKaptchaException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -111,7 +111,7 @@ public class GlobalExceptionHandler {
     /**
      * 无权访问该资源
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(UndeclaredThrowableException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
@@ -125,7 +125,7 @@ public class GlobalExceptionHandler {
     /**
      * 拦截未知的运行时异常
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

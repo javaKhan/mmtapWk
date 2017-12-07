@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.toolkit.IdWorker;
 /**
  * 唯一id生成器
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-08-23 11:10
  */
 public class IdGenerator {

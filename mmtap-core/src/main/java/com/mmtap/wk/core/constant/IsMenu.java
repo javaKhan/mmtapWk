@@ -3,7 +3,7 @@ package com.mmtap.wk.core.constant;
 /**
  * 是否是菜单的枚举
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年6月1日22:50:11
  */
 public enum IsMenu {

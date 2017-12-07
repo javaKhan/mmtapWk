@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 添加管理员的请求bean
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017年1月12日 下午6:46:24
  */
 public class ReqAddManager {

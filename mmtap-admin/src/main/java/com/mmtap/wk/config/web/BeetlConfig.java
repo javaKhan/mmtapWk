@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * web 配置类
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2016年11月12日 下午5:03:32
  */
 @Configuration

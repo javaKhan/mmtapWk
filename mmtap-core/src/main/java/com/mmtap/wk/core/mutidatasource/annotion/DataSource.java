@@ -6,7 +6,7 @@ import java.lang.annotation.*;
  * 
  * 多数据源标识
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年3月5日 上午9:44:24
  */
 @Inherited

@@ -29,7 +29,7 @@ import static com.mmtap.wk.core.support.HttpKit.getIp;
 /**
  * 登录控制器
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017年1月10日 下午8:25:24
  */
 @Controller

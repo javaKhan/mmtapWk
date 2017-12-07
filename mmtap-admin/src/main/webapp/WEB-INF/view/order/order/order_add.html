@@ -35,9 +35,9 @@
                     <div class="form-group container" style="padding-left: 50px">
                         <!--<label for="buss" class="col-sm-1 control-label">业务:</label>-->
                         @for(bus in busList){
-                        <div class="col-md-4 checkbox text-center" style="text-align: left">
+                        <div class="col-md-6 checkbox text-center" style="text-align: left">
                                 <input id="buss" type="checkbox" name="buss" value="${bus.bid}" style="margin-top: 2px;">
-                                ${bus.businessname}
+                                ${bus.businessname}［${bus.busprice}元］
                         </div>
                         @}
                     </div>

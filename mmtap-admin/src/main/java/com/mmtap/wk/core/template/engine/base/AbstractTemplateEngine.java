@@ -6,7 +6,7 @@ import com.mmtap.wk.core.template.config.*;
 /**
  * 模板生成父类
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-05-08 20:17
  */
 public class AbstractTemplateEngine {

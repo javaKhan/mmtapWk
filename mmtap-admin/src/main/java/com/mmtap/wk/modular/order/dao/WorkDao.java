@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 工作Dao
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017-11-18 17:50:20
  */
 public interface WorkDao extends BaseMapper<Work> {

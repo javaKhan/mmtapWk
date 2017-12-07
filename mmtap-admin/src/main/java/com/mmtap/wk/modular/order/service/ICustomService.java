@@ -5,7 +5,7 @@ import com.mmtap.wk.modular.order.model.Indent;
 /**
  * 客户Service
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017-11-18 17:48:58
  */
 public interface ICustomService {

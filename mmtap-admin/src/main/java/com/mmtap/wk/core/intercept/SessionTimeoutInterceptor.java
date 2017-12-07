@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 /**
  * 验证session超时的拦截器
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年6月7日21:08:48
  */
 @Aspect

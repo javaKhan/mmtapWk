@@ -5,7 +5,7 @@ import com.mmtap.wk.core.util.ToolUtil;
 /**
  * 全局配置
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-05-08 20:21
  */
 public class ContextConfig {

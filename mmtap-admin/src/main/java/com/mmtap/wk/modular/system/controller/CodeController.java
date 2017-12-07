@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 代码生成控制器
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017-05-23 18:52:34
  */
 @Controller

@@ -4,7 +4,7 @@ package com.mmtap.wk.core.node;
  * 
  * jquery ztree 插件的节点
  * 
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年2月17日 下午8:25:14
  */
 public class ZTreeNode {

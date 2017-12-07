@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * 管理员的信息封装
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017年1月11日 下午7:46:53
  */
 public class ManagerUser {

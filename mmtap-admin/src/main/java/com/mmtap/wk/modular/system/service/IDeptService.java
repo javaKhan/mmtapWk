@@ -3,7 +3,7 @@ package com.mmtap.wk.modular.system.service;
 /**
  * 部门服务
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-04-27 17:00
  */
 public interface IDeptService {

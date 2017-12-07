@@ -3,7 +3,7 @@ package com.mmtap.wk.common.constant;
 /**
  * 一些服务的快捷获取
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-03-30 15:58
  */
 public class Cst {

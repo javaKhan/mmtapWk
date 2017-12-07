@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * 全局的的异常拦截器（拦截所有的控制器）（带有@RequestMapping注解的方法上都会拦截）
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2016年11月12日 下午3:19:56
  */
 public class BaseControllerExceptionHandler {
@@ -23,7 +23,7 @@ public class BaseControllerExceptionHandler {
     /**
      * 拦截业务异常
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(GunsException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -36,7 +36,7 @@ public class BaseControllerExceptionHandler {
     /**
      * 拦截未知的运行时异常
      *
-     * @author fengshuonan
+     * @author imkzp.com
      */
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

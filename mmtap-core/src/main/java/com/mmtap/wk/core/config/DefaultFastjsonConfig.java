@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * fastjson配置类
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-05-23 22:56
  */
 @Configuration("defaultFastjsonConfig")

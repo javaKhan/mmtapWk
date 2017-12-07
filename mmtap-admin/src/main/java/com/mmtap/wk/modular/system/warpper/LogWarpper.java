@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 日志列表的包装类
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年4月5日22:56:24
  */
 public class LogWarpper extends BaseControllerWarpper {

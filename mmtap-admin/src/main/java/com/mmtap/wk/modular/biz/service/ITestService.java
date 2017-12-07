@@ -3,7 +3,7 @@ package com.mmtap.wk.modular.biz.service;
 /**
  * 测试多数据源的服务
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-06-23 23:01
  */
 public interface ITestService {

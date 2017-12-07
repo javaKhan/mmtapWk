@@ -4,7 +4,7 @@ package com.mmtap.wk.common.constant;
  * 
  * 多数据源的枚举
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年3月5日 上午10:15:02
  */
 public interface DSEnum {

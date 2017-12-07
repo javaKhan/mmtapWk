@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 业务中心Dao
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017-11-13 22:58:10
  */
 public interface ManageDao extends BaseMapper<Business> {

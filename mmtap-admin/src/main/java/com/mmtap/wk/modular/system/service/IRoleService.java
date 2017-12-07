@@ -3,7 +3,7 @@ package com.mmtap.wk.modular.system.service;
 /**
  * 角色相关业务
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017年1月10日 下午9:11:57
  */
 public interface IRoleService {

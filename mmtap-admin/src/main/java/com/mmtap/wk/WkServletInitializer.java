@@ -6,7 +6,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 /**
  * Guns Web程序启动类
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-05-21 9:43
  */
 public class WkServletInitializer extends SpringBootServletInitializer {

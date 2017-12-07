@@ -18,7 +18,7 @@ import java.util.List;
  * Db.getMapper(UserLoginMapper.class).selectById("14779707158513204");<br>
  * <p>
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年2月22日 下午8:07:17
  */
 @SuppressWarnings("all")

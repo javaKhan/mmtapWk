@@ -21,7 +21,7 @@ import java.io.IOException;
 /**
  * 验证码生成
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-05-05 23:10
  */
 @Controller

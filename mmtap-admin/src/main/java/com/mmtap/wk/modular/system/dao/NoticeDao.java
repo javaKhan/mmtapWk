@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * 通知dao
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-05-09 23:03
  */
 public interface NoticeDao {

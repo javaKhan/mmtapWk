@@ -3,7 +3,7 @@ package ${service.packageName};
 /**
  * ${context.bizChName}Service
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date ${tool.currentTime()}
  */
 public interface I${context.bizEnBigName}Service {

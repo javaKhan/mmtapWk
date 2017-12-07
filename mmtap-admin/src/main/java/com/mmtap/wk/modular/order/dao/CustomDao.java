@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 客户Dao
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017-11-18 17:48:58
  */
 public interface CustomDao extends BaseMapper<Custom> {

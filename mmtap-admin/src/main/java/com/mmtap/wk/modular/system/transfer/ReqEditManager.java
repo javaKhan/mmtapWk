@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 /**
  * 编辑管理员的请求
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017年1月15日 下午10:29:16
  */
 public class ReqEditManager {

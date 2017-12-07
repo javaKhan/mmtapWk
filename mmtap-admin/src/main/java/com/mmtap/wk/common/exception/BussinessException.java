@@ -3,7 +3,7 @@ package com.mmtap.wk.common.exception;
 import com.mmtap.wk.core.exception.GunsException;
 
 /**
- * @author fengshuonan
+ * @author imkzp.com
  * @Description 业务异常的封装
  * @date 2016年11月12日 下午5:05:10
  */

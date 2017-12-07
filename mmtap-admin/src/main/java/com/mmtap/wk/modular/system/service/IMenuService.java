@@ -3,7 +3,7 @@ package com.mmtap.wk.modular.system.service;
 /**
  * 菜单服务
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-05-05 22:19
  */
 public interface IMenuService {

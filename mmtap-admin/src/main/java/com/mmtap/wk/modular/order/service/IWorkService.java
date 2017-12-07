@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 工作Service
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @Date 2017-11-18 17:50:20
  */
 public interface IWorkService {

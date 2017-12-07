@@ -3,7 +3,7 @@ package com.mmtap.wk.common.constant.cache;
 /**
  * 缓存的key集合
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-04-25 9:37
  */
 public interface CacheKey {

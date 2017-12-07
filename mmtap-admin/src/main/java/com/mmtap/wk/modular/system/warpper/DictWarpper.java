@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 字典列表的包装
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017年4月25日 18:10:31
  */
 public class DictWarpper extends BaseControllerWarpper {

@@ -3,7 +3,7 @@ package com.mmtap.wk.modular.system.service;
 /**
  * 字典服务
  *
- * @author fengshuonan
+ * @author imkzp.com
  * @date 2017-04-27 17:00
  */
 public interface IDictService {
@@ -11,7 +11,7 @@ public interface IDictService {
     /**
      * 添加字典
      *
-     * @author fengshuonan
+     * @author imkzp.com
      * @Date 2017/4/27 17:01
      */
     void addDict(String dictName, String dictValues);
@@ -19,7 +19,7 @@ public interface IDictService {
     /**
      * 编辑字典
      *
-     * @author fengshuonan
+     * @author imkzp.com
      * @Date 2017/4/28 11:01
      */
     void editDict(Integer dictId, String dictName, String dicts);
@@ -27,7 +27,7 @@ public interface IDictService {
     /**
      * 删除字典
      *
-     * @author fengshuonan
+     * @author imkzp.com
      * @Date 2017/4/28 11:39
      */
     void delteDict(Integer dictId);
