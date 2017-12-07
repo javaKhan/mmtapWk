@@ -2,7 +2,23 @@
  * 初始化属性详情对话框
  */
 var PropInfoDlg = {
-    propInfoData : {}
+    propInfoData : {},
+    validateFields: {
+        title: {
+            validators: {
+                notEmpty: {
+                    message: '流程名称不能为空'
+                }
+            }
+        },
+        proporder: {
+            validators: {
+                notEmpty: {
+                    message: '流程排序不能为空'
+                }
+            }
+        },
+    }
 };
 
 /**
@@ -49,12 +65,24 @@ PropInfoDlg.collectData = function() {
 }
 
 /**
+ * 校验输入
+ * @returns {*|jQuery}
+ */
+PropInfoDlg.validate = function () {
+    $('#flow_prop_form').data("bootstrapValidator").resetForm();
+    $('#flow_prop_form').bootstrapValidator('validate');
+    return $("#flow_prop_form").data('bootstrapValidator').isValid();
+};
+
+/**
  * 提交添加
  */
 PropInfoDlg.addSubmit = function() {
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/prop/add", function(data){
         Feng.success("添加成功!");
@@ -74,7 +102,9 @@ PropInfoDlg.editSubmit = function() {
 
     this.clearData();
     this.collectData();
-
+    if (!this.validate()) {
+        return;
+    }
     //提交信息
     var ajax = new $ax(Feng.ctxPath + "/prop/update", function(data){
         Feng.success("修改成功!");
@@ -88,5 +118,5 @@ PropInfoDlg.editSubmit = function() {
 }
 
 $(function() {
-
+    Feng.initValidator("flow_prop_form",PropInfoDlg.validateFields);
 });
