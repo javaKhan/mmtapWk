@@ -2,9 +2,8 @@ package com.mmtap.wk.modular.order.utils;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.collections.MapUtils;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.*;
 
 import java.util.List;
 import java.util.Map;
@@ -107,9 +106,24 @@ public class AllOrderExcel extends ExcelView {
                     String infoStr = MapUtils.getString(work, "info");
                     if (null != infoStr && !"".equals(infoStr)) {
                         Map info = JSON.parseObject(infoStr);
-                        for (Object key : info.entrySet()) {
-                            row.createCell(pointer++).setCellValue(key.toString() + m+":");
-                            row.createCell(pointer++).setCellValue(MapUtils.getString(info, key));
+                        for (Object entry : info.entrySet()) {
+                            Map.Entry e = (Map.Entry)entry;
+
+                            Cell cellKey  = row.createCell(pointer++);
+
+                            CellStyle infoKeyStyle = sheet.getWorkbook().createCellStyle();
+                            infoKeyStyle.setFillForegroundColor((short)59);
+
+                            infoKeyStyle.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+                            infoKeyStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+                            infoKeyStyle.setAlignment(HorizontalAlignment.RIGHT);
+                            cellKey.setCellStyle(infoKeyStyle);
+
+                            cellKey.setCellValue((e.getKey()+":"));
+
+
+                            row.createCell(pointer++).setCellValue(""+e.getValue());
                         }
                     }
 
@@ -120,49 +134,6 @@ public class AllOrderExcel extends ExcelView {
 
 
         }
-
-
-
-
-
-
-//
-//        List<Map> workList = (List) map.get("works");
-//        int x = 1;
-//        for (Map work : workList){
-//            if(null!=work){
-//                header.createCell(col).setCellValue("业务类型"+x);
-//                header.getCell(col).setCellStyle(super.cellStyle);
-//                body.createCell(col).setCellValue(MapUtils.getString(work,"businessname"));
-//                col++;
-//                header.createCell(col).setCellValue("业务状态"+x);
-//                header.getCell(col).setCellStyle(super.cellStyle);
-//                body.createCell(col).setCellValue(MapUtils.getString(work,"flowname"));
-//                col++;
-//                header.createCell(col).setCellValue("业务价格"+x);
-//                header.getCell(col).setCellStyle(super.cellStyle);
-//                body.createCell(col).setCellValue(MapUtils.getString(work,"price"));
-//                col++;
-//                header.createCell(col).setCellValue("业务备注"+x);
-//                header.getCell(col).setCellStyle(super.cellStyle);
-//                body.createCell(col).setCellValue(MapUtils.getString(work,"workcom"));
-//                col++;
-//
-//                //处理业务信息的JSON
-//                String infoStr = MapUtils.getString(work,"info");
-//                if(null!=infoStr && !"".equals(infoStr)){
-//                    Map info = JSON.parseObject(infoStr);
-//                    for (Object key : info.entrySet()){
-//                        header.createCell(col).setCellValue(key.toString()+x);
-//                        header.getCell(col).setCellStyle(super.cellStyle);
-//                        body.createCell(col).setCellValue(MapUtils.getString(info,key));
-//                        col++;
-//                    }
-//                }
-//
-//                x++;//下一业务标示
-//            }
-//        }
 
     }//方法结束
 }
