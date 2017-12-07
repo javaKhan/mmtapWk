@@ -118,10 +118,11 @@ public class SigOrderExcel extends ExcelView {
                 String infoStr = MapUtils.getString(work,"info");
                 if(null!=infoStr && !"".equals(infoStr)){
                     Map info = JSON.parseObject(infoStr);
-                    for (Object key : info.entrySet()){
-                        header.createCell(col).setCellValue(key.toString()+x);
+                    for (Object entry : info.entrySet()){
+                        Map.Entry e = (Map.Entry)entry;
+                        header.createCell(col).setCellValue(""+e.getKey()+x);
                         header.getCell(col).setCellStyle(super.cellStyle);
-                        body.createCell(col).setCellValue(MapUtils.getString(info,key));
+                        body.createCell(col).setCellValue(""+e.getValue());
                         col++;
                     }
                 }
