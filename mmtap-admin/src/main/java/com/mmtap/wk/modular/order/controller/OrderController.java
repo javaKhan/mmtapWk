@@ -15,16 +15,15 @@ import com.mmtap.wk.modular.business.wrapper.BusinessWrapper;
 import com.mmtap.wk.modular.order.dao.CustomDao;
 import com.mmtap.wk.modular.order.dao.IndentDao;
 import com.mmtap.wk.modular.order.dao.WorkDao;
+import com.mmtap.wk.modular.order.model.Comment;
 import com.mmtap.wk.modular.order.model.Custom;
 import com.mmtap.wk.modular.order.model.Indent;
 import com.mmtap.wk.modular.order.model.Work;
 import com.mmtap.wk.modular.order.service.IOrderService;
-import com.mmtap.wk.modular.order.utils.AllOrderExcel;
-import com.mmtap.wk.modular.order.utils.ExcelView;
-import com.mmtap.wk.modular.order.utils.OrderUtil;
-import com.mmtap.wk.modular.order.utils.SigOrderExcel;
+import com.mmtap.wk.modular.order.utils.*;
 import com.mmtap.wk.modular.order.wrapper.OrderWraper;
 import com.mmtap.wk.modular.order.wrapper.WorkWrapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -120,6 +119,7 @@ public class OrderController extends BaseController {
             List workList = workDao.selectMaps(new EntityWrapper<Work>().eq("oid",orderId));
             Object workWrapList = super.warpObject(new WorkWrapper(workList));
             model.addAttribute("works",workWrapList);
+
         }
         return PREFIX + "order_state.html";
     }
@@ -150,7 +150,7 @@ public class OrderController extends BaseController {
      * 新增订单
      */
     @RequestMapping(value = "/add")
-    public Object add(Custom custom, Integer[] buss,String ordcom) {
+    public Object add(Custom custom, Integer[] buss,String ordcom,String used) {
         //生成客户ID
         String cid = OrderUtil.createCustomID();
         custom.setCid(cid);
@@ -164,6 +164,7 @@ public class OrderController extends BaseController {
         order.setCreater(creater);
         order.setCreatetime(new Date());
         order.setComments(ordcom);
+        order.setUsed(used);
         //判断业务
         orderService.newOrder(custom,buss,order);
         return PREFIX+"order_result.html";
@@ -221,4 +222,17 @@ public class OrderController extends BaseController {
         ExcelView excelView = new AllOrderExcel();
         return new ModelAndView(excelView,map);
     }
+
+    @RequestMapping("/info")
+    public String info(){
+        return PREFIX+"order_info.html";
+    }
+
+    @RequestMapping("/infolist")
+    @ResponseBody
+    public Object infoList(String condition){
+        List<Map> infoList = orderService.listInfo(condition);
+        return infoList;
+    }
+
 }

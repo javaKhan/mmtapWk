@@ -16,6 +16,8 @@ Order.initColumn = function () {
         {field: 'selectItem', radio: true},
         {title: '订单号', field: 'oid', visible: true, align: 'center', valign: 'middle'},
         {title: '客户名称', field: 'customName', visible: true, align: 'center', valign: 'middle'},
+        {title: '电话', field: 'mobile', visible: true, align: 'center', valign: 'middle'},
+        {title: '旺旺', field: 'wwid', visible: true, align: 'center', valign: 'middle'},
         {title: '创建者', field: 'createName', visible: true, align: 'center', valign: 'middle'},
         {title: '创建时间', field: 'createtime', visible: true, align: 'center', valign: 'middle'},
         {title: '操作', formatter:'operateFormatter', events:'operateEvents', visible: true, align: 'center', valign: 'middle'},

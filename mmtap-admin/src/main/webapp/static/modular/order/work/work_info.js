@@ -77,6 +77,15 @@ WorkInfoDlg.doNext = function() {
 }
 
 /**
+ * 退回业务上面流程
+ */
+WorkInfoDlg.doBefore = function(wid) {
+    var bFid = $("#bstep").val();
+    var url ="/work/before/"+wid+"?tostep="+bFid;
+    location.href = url;
+}
+
+/**
  * 保存业务数据
  */
 WorkInfoDlg.saveInfo = function () {
@@ -95,17 +104,16 @@ WorkInfoDlg.saveInfo = function () {
  * @returns {boolean}
  */
 WorkInfoDlg.saveComment = function () {
-
-    var wo = $("#wc-old").text();
     var wn = $("#wc-new").val();
-    var text = wo+"&lt;br&gt;"+wn;
     if(null==wn||''==wn){
         Feng.info("没有内容不需要保存！");
         return false;
     }else {
         var wid =$("#wid").val();
-        $.post("/work/workcom",{"wid":wid,"workcom":text},function (res) {
-            if(200==res.code){
+        $.post("/work/workcom",{"wid":wid,"workcom":wn},function (res) {
+            if(res.uname){
+                $("#wc-old").append('<h4>'+res.uname+'在'+res.ctime+' 备注:'+res.ctext+'</h4>');
+                $("#wc-new").val('');
                 Feng.success("保存成功!");
             }else {
                 Feng.error("保存失败!" + res.message + "!");

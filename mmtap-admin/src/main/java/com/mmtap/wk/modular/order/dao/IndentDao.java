@@ -29,4 +29,6 @@ public interface IndentDao extends BaseMapper<Indent>{
 
     //查出要备份的订单
     List bakBatch(@Param("bdate") Date bdate, @Param("edate") Date edate);
+
+    List<Map> listInfo(@Param("condition") String condition);
 }

@@ -19,4 +19,6 @@ public interface IWorkService {
     void newprice(String wid, double price);
 
     void disWork(String wid);
+
+    boolean beforeStep(String wid, Integer tostep);
 }

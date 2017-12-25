@@ -17,7 +17,13 @@ Work.initColumn = function () {
         {title: 'id', field: 'wid', visible: false, align: 'center', valign: 'middle'},
         {title: '订单号', field: 'oid', visible: true, align: 'center', valign: 'middle'},
         {title: '客户', field: 'customname', visible: true, align: 'center', valign: 'middle'},
+        {title: '电话', field: 'mobile', visible: true, align: 'center', valign: 'middle'},
+        {title: '旺旺', field: 'wwid', visible: true, align: 'center', valign: 'middle'},
+        {title: 'qq/微信', field: 'netid', visible: false, align: 'center', valign: 'middle'},
+        {title: '淘宝店名', field: 'tbname', visible: false, align: 'center', valign: 'middle'},
+        {title: '淘宝订单', field: 'tbcode', visible: true, align: 'center', valign: 'middle'},
         {title: '业务类型', field: 'businessname', visible: true, align: 'center', valign: 'middle'},
+        {title: '价格(元)', field: 'price', visible: true, align: 'center', valign: 'middle'},
         {title: '业务状态', field: 'flowname', visible: true, align: 'center', valign: 'middle'},
         {title: '创建人', field: 'name', visible: true, align: 'center', valign: 'middle'},
         {title: '创建时间', field: 'createtime', visible: true, align: 'center', valign: 'middle'}

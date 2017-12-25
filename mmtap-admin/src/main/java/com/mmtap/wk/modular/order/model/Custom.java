@@ -24,6 +24,9 @@ public class Custom  extends Model<Custom>{
     private String cuscom;
     private Integer creater;
     private Date createtime;
+    private String tbname;
+    private String tbcode;
+
 
     public String getCid() {
         return cid;
@@ -111,6 +114,23 @@ public class Custom  extends Model<Custom>{
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+
+    public String getTbname() {
+        return tbname;
+    }
+
+    public void setTbname(String tbname) {
+        this.tbname = tbname;
+    }
+
+    public String getTbcode() {
+        return tbcode;
+    }
+
+    public void setTbcode(String tbcode) {
+        this.tbcode = tbcode;
     }
 
     @Override

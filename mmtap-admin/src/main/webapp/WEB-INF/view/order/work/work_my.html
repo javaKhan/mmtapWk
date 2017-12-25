@@ -1,4 +1,4 @@
-@layout("/common/_container.html"){
+    @layout("/common/_container.html"){
 <div class="ibox float-e-margins" id="mywork">
 
     <div class="ibox-title text-right">
@@ -12,10 +12,13 @@
                     <tr>
                         <th>订单号</th>
                         <th>客户</th>
+                        <th>电话</th>
+                        <th>旺旺</th>
+                        <th>淘宝订单</th>
                         <th>业务类型</th>
                         <th>业务状态</th>
                         <th>创建人</th>
-                        <th>创建时间</th>
+                        <!--<th>创建时间</th>-->
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -24,10 +27,13 @@
                         <tr>
                             <td>${work.oid}</td>
                             <td>${work.customname}</td>
+                            <td>${work.mobile}</td>
+                            <td>${work.wwid}</td>
+                            <td>${work.tbcode}</td>
                             <td>${work.businessname}</td>
                             <td>${work.flowname}</td>
                             <td>${work.name}</td>
-                            <td>${work.createtime}</td>
+                            <!--<td>${work.createtime}</td>-->
                             <td><a class="btn btn-info btn-sm" href="/work/work_do/${work.wid}">办理</a></td>
                             <td><a class="btn btn-warning btn-sm" onclick="disWork('${work.wid}')">退办</a></td>
                         </tr>

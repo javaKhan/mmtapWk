@@ -21,4 +21,6 @@ public interface IOrderService {
     Map bakSig(String oid);
 
     List bakBatch(Date bdate,Date edate);
+
+    List<Map> listInfo(String condition);
 }

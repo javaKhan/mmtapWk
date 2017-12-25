@@ -15,10 +15,15 @@ import com.mmtap.wk.modular.business.model.Flow;
 import com.mmtap.wk.modular.business.model.Prop;
 import com.mmtap.wk.modular.order.dao.InfoDao;
 import com.mmtap.wk.modular.order.dao.WorkDao;
+import com.mmtap.wk.modular.order.model.Comment;
 import com.mmtap.wk.modular.order.model.Info;
+import com.mmtap.wk.modular.order.model.Work;
 import com.mmtap.wk.modular.order.service.IWorkService;
+import com.mmtap.wk.modular.order.service.MailService;
+import com.mmtap.wk.modular.order.utils.CommentUtil;
 import com.mmtap.wk.modular.order.wrapper.WorkWrapper;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +32,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +52,8 @@ public class WorkController extends BaseController {
 
     @Autowired
     private IWorkService workService;
+    @Autowired
+    private MailService mailService;
     @Autowired
     private WorkDao workDao;
     @Autowired
@@ -99,11 +109,24 @@ public class WorkController extends BaseController {
         Map workInfo = workDao.getWorkInfo(wid);
         model.addAttribute("workInfo",workInfo);
 
+        //工单的评论列表
+        List wcom = new ArrayList();
+        String workCom = MapUtils.getString(workInfo,"workcom");
+        if(StringUtils.isNotEmpty(workCom)){
+            wcom = CommentUtil.toComObj(workCom);
+        }
+        model.addAttribute("comList",wcom);
+
         List<Map<String, Object>> props = propDao.selectMaps(new EntityWrapper<Prop>().eq("bid",workInfo.get("bid")).orderBy("proporder"));
         model.addAttribute("props",props);
 
         List flowList = flowDao.selectList(new EntityWrapper<Flow>().eq("bid",workInfo.get("bid")).orderBy("floworder"));
         model.addAttribute("flows",flowList);
+
+        //可以回跳的步骤
+        List backflowList = flowDao.selectList(new EntityWrapper<Flow>().eq("bid",workInfo.get("bid")).and().lt("floworder",workInfo.get("floworder")).orderBy("floworder"));
+        model.addAttribute("beforeFlows",backflowList);
+
         Info info = infoDao.selectById(wid);
         if(null!=info && !"".equals(info.getInfo())){
             Map infos = JSON.parseObject(info.getInfo());
@@ -130,8 +153,16 @@ public class WorkController extends BaseController {
         if(ToolUtil.isEmpty(workcom)){
             throw new BussinessException(BizExceptionEnum.TEXT_NULL);
         }
-        workDao.saveWorkCom(wid,workcom);
-        return SUCCESS_TIP;
+        Work work = workDao.selectById(wid);
+        List wcomList= CommentUtil.toComObj(work.getWorkcom());
+        Comment comment = new Comment();
+        comment.setUname(ShiroKit.getUser().getName());
+        comment.setCtime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        comment.setCtext(workcom);
+        wcomList.add(comment);
+        workDao.saveWorkCom(wid, CommentUtil.toJsonArrStr(wcomList));
+
+        return comment;
     }
 
     /**
@@ -158,8 +189,27 @@ public class WorkController extends BaseController {
             throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
         }
         boolean result = workService.nextStep(wid);
+        if (result){
+            mailService.sendHtmlMail(wid);
+        }
         return PREFIX + "work_succes.html";
     }
+
+    /**
+     * 工作流程完结，流程跳转
+     * 业务日志
+     * @return
+     */
+    @RequestMapping("/before/{wid}")
+    public String workBefore(@PathVariable String wid,@RequestParam Integer tostep){
+        if(ToolUtil.isEmpty(tostep)){
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        boolean result = workService.beforeStep(wid,tostep);
+        return PREFIX + "work_succes.html";
+    }
+
+
 
     /**
      * 自定义价格
@@ -173,7 +223,6 @@ public class WorkController extends BaseController {
         workService.newprice(wid,price);
         return SUCCESS_TIP;
     }
-
 
 
     /**

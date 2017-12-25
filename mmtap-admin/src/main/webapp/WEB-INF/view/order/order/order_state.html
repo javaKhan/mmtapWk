@@ -66,7 +66,9 @@
                 <div class="col-md-4">业务:${work.business.businessname}</div>
                 <div class="col-md-4">价格:${work.price}</div>
                 <div class="col-md-4">状态:${work.flow.flowname!}</div>
-                <div class="col-md-12">${work.workcom!}</div>
+                @for(comment in work.wcoms){
+                    <div class="col-md-12">${comment.uname}在${comment.ctime}备注:${comment.ctext}</div>
+                @}
             </div>
             @}
         </div>

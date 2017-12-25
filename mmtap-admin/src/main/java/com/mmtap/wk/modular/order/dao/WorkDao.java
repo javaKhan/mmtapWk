@@ -33,5 +33,7 @@ public interface WorkDao extends BaseMapper<Work> {
 
     void finishWork(String wid);
 
+    void beforeStep(@Param("wid") String wid, @Param("tostep") Integer tostep);
+
 //    Map findWorkTraceInfo(String wid);
 }

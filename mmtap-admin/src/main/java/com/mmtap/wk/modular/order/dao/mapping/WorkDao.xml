@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mmtap.wk.modular.order.dao.WorkDao">
     <select id="getTodoWorks" parameterType="java.util.List"  resultType="Map">
-      SELECT w.*,f.flowname,b.businessname,c.customname,u.`name` from work w,flow f,business b,custom c,`user` u
+      SELECT w.*,f.flowname,b.businessname,c.customname,c.mobile,c.wwid,c.netid,c.tbname,c.tbcode,u.`name` from work w,flow f,business b,custom c,`user` u
       where w.fid = f.fid and w.bid = f.bid and b.bid = w.bid and c.cid = w.cid and w.creater = u.id and w.doer IS NULL
         and isend = false and f.flowrole in
         <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
@@ -16,14 +16,14 @@
     </update>
 
     <select id="getMyWorks"  resultType="Map">
-      SELECT w.*,f.flowname,b.businessname,c.customname,u.`name` from work w,flow f,business b,custom c,`user` u
+      SELECT w.*,f.flowname,b.businessname,c.customname,c.mobile,c.wwid,c.tbcode,u.`name` from work w,flow f,business b,custom c,`user` u
       where w.fid = f.fid and w.bid = f.bid and b.bid = w.bid and c.cid = w.cid and w.creater = u.id
       and w.doer=#{uid}
         order by w.createtime
     </select>
 
     <select id="getWorkInfo" resultType="Map">
-      select w.*,i.comments,b.businessname,f.flowname,f.floworder,u.`name`,c.*
+      select w.*,i.comments,i.used,b.businessname,f.flowname,f.floworder,f.flowrole,u.`name`,c.*
         from `work` w,indent i,business b,flow f,`user` u,custom c
         where w.oid=i.oid and w.bid=b.bid and w.fid = f.fid and w.creater =u.id and w.cid=c.cid
         and w.wid=#{wid}
@@ -36,6 +36,11 @@
     <update id="nextStep">
       UPDATE work SET doer=NULL , fid=#{fid} WHERE wid=#{wid}
     </update>
+
+    <update id="beforeStep">
+        UPDATE work SET doer=NULL , fid=#{tostep} WHERE wid=#{wid}
+    </update>
+
 
     <update id="saveWorkCom">
         UPDATE work set workcom=#{workcom} where wid=#{wid}

@@ -125,4 +125,9 @@ public class OrderServiceImpl implements IOrderService {
         }
         return result;
     }
+
+    @Override
+    public List<Map> listInfo(String condition) {
+        return indentDao.listInfo(condition);
+    }
 }

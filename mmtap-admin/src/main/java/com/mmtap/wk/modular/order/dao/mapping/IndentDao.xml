@@ -3,8 +3,8 @@
 <mapper namespace="com.mmtap.wk.modular.order.dao.IndentDao">
 
     <select id="list" resultType="map">
-        select * from indent
-        order by createtime DESC
+        select * from indent,custom where indent.cid=custom.cid
+        order by indent.createtime DESC
     </select>
 
     <select id="selectById" resultType="com.mmtap.wk.modular.order.model.Indent">
@@ -29,5 +29,13 @@
 
     <select id="bakBatch" resultType="String">
         SELECT oid from indent WHERE createtime BETWEEN #{bdate} and #{edate}
+    </select>
+
+    <select id="listInfo" resultType="map">
+      SELECT * FROM indent o,info i,custom c,work w WHERE o.oid=w.oid and c.cid=o.cid and w.wid=i.wid
+        <if test="condition != null and condition != ''">
+            AND i.info like CONCAT('%',#{condition},'%')
+        </if>
+        order by i.wid DESC
     </select>
 </mapper>

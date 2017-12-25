@@ -15,11 +15,16 @@
                 <div class="col-md-3 text-left">${workInfo.name}</div>
                 <div class="col-md-1 text-right">时间:</div>
                 <div class="col-md-3 text-left">${workInfo.createtime}</div>
+                <div class="row">
+                    <div class="col-md-1 text-right">用途:</div>
+                    <div class="col-md-11 text-left">${workInfo.used}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 text-right">备注:</div>
+                    <div class="col-md-11 text-danger large">${workInfo.comments}</div>
+                </div>
             </div>
-            <div class="row">
-                <div class="col-md-1 text-right">备注:</div>
-                <div class="col-md-11 text-danger large">${workInfo.comments}</div>
-            </div>
+
 
             <div class="row">
                 <h3>客户信息</h3>
@@ -92,8 +97,16 @@
         </div>
         <hr>
         <div class="row">
-            <div class="col-sm-12" id="wc-old">${workInfo.workcom}</div>
-            <div class="col-sm-10">
+
+
+
+            <div class="col-sm-12" id="wc-old">
+                @for(wcom in comList){
+                <h4>${wcom.uname}在${wcom.ctime} 备注:${wcom.ctext}</h4>
+                @}
+            </div>
+
+            <div class="col-sm-10 text-left">
                 <textarea id="wc-new" class="form-control" rows="3" placeholder="请输入备注!"></textarea>
             </div>
             <div class="col-sm-2 text-right">
@@ -101,21 +114,30 @@
             </div>
         </div>
         <hr>
-        <div class="row text-right">
+        <div class="row">
 
             <div id="smartwizard" class="col-sm-12">
                 <ul>
                     @for(flow in flows){
                         <li><a href="#step-1">第${flow.floworder}步<br /><small>${flow.flowname}</small></a></li>
-                        <!--<li><a href="#step-2">第2步<br /><small>深深sdfs</small></a></li>-->
-                        <!--<li><a href="#step-3">第3步<br /><small>首都发生的</small></a></li>-->
-                        <!--<li><a href="#step-4">第4步<br /><small>首都发生的饭</small></a></li>-->
                     @}
                 </ul>
-
             </div>
+        </div>
 
-            <div class="col-sm-12 text-right">
+        <div class="row" style="margin-top: 15px">
+            @if(tool.isNotEmpty(beforeFlows)){
+            <div class="col-sm-3 text-right" >
+                <select class="form-control" id="bstep">
+                    @for(flow in beforeFlows){
+                        <option value="${flow.fid}">${flow.flowname}</option>
+                    @}
+                </select>
+            </div>
+            <div class="col-sm-3 text-left"><a class="btn btn-warning" onclick="WorkInfoDlg.doBefore('${workInfo.wid}');" >退回重办</a></div>
+            @}
+
+            <div class="col-sm-6 text-right">
                 <a class="btn btn-warning" href="/work/next/${workInfo.wid}">下一流程</a>
             </div>
         </div>

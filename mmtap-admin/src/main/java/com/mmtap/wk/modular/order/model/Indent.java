@@ -17,6 +17,7 @@ public class Indent extends Model {
     private Integer creater;    //创建者
     private Date createtime;    //生成时间
     private String comments;    //订单备注
+    private String used;        //订单用途
 
     public String getOid() {
         return oid;
@@ -56,6 +57,14 @@ public class Indent extends Model {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public String getUsed() {
+        return used;
+    }
+
+    public void setUsed(String used) {
+        this.used = used;
     }
 
     @Override
