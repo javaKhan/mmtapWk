@@ -1,5 +1,6 @@
 package com.mmtap.wk.common.constant.factory;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.mmtap.wk.common.constant.cache.Cache;
@@ -19,14 +20,18 @@ import com.mmtap.wk.modular.business.model.Business;
 import com.mmtap.wk.modular.business.model.Flow;
 import com.mmtap.wk.modular.order.dao.CustomDao;
 import com.mmtap.wk.modular.order.dao.IndentDao;
+import com.mmtap.wk.modular.order.dao.InfoDao;
 import com.mmtap.wk.modular.order.model.Custom;
+import com.mmtap.wk.modular.order.model.Info;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 常量的生产工厂
@@ -50,7 +55,7 @@ public class ConstantFactory implements IConstantFactory {
     private IndentDao indentDao = SpringContextHolder.getBean(IndentDao.class);
     private ManageDao manageDao = SpringContextHolder.getBean(ManageDao.class);
     private FlowDao flowDao = SpringContextHolder.getBean(FlowDao.class);
-
+    private InfoDao infoDao = SpringContextHolder.getBean(InfoDao.class);
 
     public static IConstantFactory me() {
         return SpringContextHolder.getBean("constantFactory");
@@ -372,5 +377,19 @@ public class ConstantFactory implements IConstantFactory {
     @Override
     public Integer getFirstFlowId(Integer bid) {
         return flowDao.getFirstFlowId(bid);
+    }
+
+    /**
+     * 任务信息转化为map
+     * @param wid
+     * @return
+     */
+    public Map getWorkInfo(String wid){
+        Info info = infoDao.selectById(wid);
+        Map res = new HashMap();
+        if(null!=info && null!=info.getInfo() && !"".equals(info.getInfo())){
+            res = JSON.parseObject(info.getInfo(),Map.class);
+        }
+        return res;
     }
 }

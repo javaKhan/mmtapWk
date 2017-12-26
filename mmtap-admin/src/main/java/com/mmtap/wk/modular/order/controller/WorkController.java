@@ -206,6 +206,9 @@ public class WorkController extends BaseController {
             throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
         }
         boolean result = workService.beforeStep(wid,tostep);
+        if(result){
+            mailService.sendHtmlMail(wid);
+        }
         return PREFIX + "work_succes.html";
     }
 

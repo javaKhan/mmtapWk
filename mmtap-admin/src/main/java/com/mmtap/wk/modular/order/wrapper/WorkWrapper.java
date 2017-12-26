@@ -24,5 +24,11 @@ public class WorkWrapper extends BaseControllerWarpper {
         map.put("business",ConstantFactory.me().getBusinessInfo(bid));
         map.put("flow",ConstantFactory.me().getFlowInfo(fid));
         map.put("wcoms", CommentUtil.toComObj(MapUtils.getString(map,"workcom")));
+        String wid = MapUtils.getString(map,"wid");
+        Map infoMap = ConstantFactory.me().getWorkInfo(wid);
+        if(infoMap.containsKey("wid")){
+            infoMap.remove("wid");
+        }
+        map.put("winfo",infoMap);
     }
 }

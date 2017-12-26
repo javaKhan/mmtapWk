@@ -119,7 +119,6 @@ public class OrderController extends BaseController {
             List workList = workDao.selectMaps(new EntityWrapper<Work>().eq("oid",orderId));
             Object workWrapList = super.warpObject(new WorkWrapper(workList));
             model.addAttribute("works",workWrapList);
-
         }
         return PREFIX + "order_state.html";
     }

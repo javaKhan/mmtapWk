@@ -13,6 +13,7 @@ import com.mmtap.wk.modular.order.dao.WorkDao;
 import com.mmtap.wk.modular.order.model.Custom;
 import com.mmtap.wk.modular.order.model.Indent;
 import com.mmtap.wk.modular.order.model.Work;
+import com.mmtap.wk.modular.order.service.MailService;
 import com.mmtap.wk.modular.order.utils.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,9 @@ public class OrderServiceImpl implements IOrderService {
     private CustomDao customDao;
     @Autowired
     private WorkDao workDao;
+    @Autowired
+    private MailService mailService;
+
 
     @Transactional
     public void newOrder(Custom custom, Integer[] buss, Indent order) {
@@ -63,6 +67,9 @@ public class OrderServiceImpl implements IOrderService {
                 work.setCreater(order.getCreater());
                 work.setCreatetime(order.getCreatetime());
                 work.insert();
+
+                //邮件提醒
+                mailService.sendHtmlMail(work.getWid());
 
                 /**
                  *  业务日志部分
@@ -95,8 +102,6 @@ public class OrderServiceImpl implements IOrderService {
                 }
 
                 trace.insert();
-
-
             }
         }
     }

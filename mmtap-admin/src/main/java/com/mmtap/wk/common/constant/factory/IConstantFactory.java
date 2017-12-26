@@ -5,6 +5,7 @@ import com.mmtap.wk.modular.business.model.Business;
 import com.mmtap.wk.modular.business.model.Flow;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 常量生产工厂的接口
@@ -128,4 +129,6 @@ public interface IConstantFactory {
     Flow getFlowInfo(Integer fid);
 
     Integer getFirstFlowId(Integer bid);
+
+    Map getWorkInfo(String wid);
 }

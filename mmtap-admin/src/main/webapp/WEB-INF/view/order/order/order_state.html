@@ -28,6 +28,13 @@
                 <div class="col-sm-4">${custom.mobile}</div>
             </div>
             <div class="row info-row-height">
+                <div class="col-sm-2 text-right">淘宝店铺</div>
+                <div class="col-sm-4 text-left b-r">${custom.tbname}</div>
+
+                <div class="col-sm-2 text-right">淘宝订单</div>
+                <div class="col-sm-4">${custom.tbcode}</div>
+            </div>
+            <div class="row info-row-height">
                 <div class="col-sm-2 text-right">旺旺号码</div>
                 <div class="col-sm-4 b-r">${custom.wwid}</div>
 
@@ -69,6 +76,13 @@
                 @for(comment in work.wcoms){
                     <div class="col-md-12">${comment.uname}在${comment.ctime}备注:${comment.ctext}</div>
                 @}
+            </div>
+            <div class="container" style="border: solid 1px grey">
+                <div class="row">
+                    @for(info in work.winfo){
+                    <div class="col-md-5">${info.key}:${info.value}</div>
+                    @}
+                </div>
             </div>
             @}
         </div>
