@@ -2,6 +2,8 @@ package com.mmtap.wk.modular.order.controller;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.mmtap.wk.common.constant.factory.PageFactory;
 import com.mmtap.wk.common.exception.BizExceptionEnum;
 import com.mmtap.wk.common.exception.BussinessException;
 import com.mmtap.wk.core.base.controller.BaseController;
@@ -82,6 +84,8 @@ public class CustomController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list(String condition) {
+        Page page = new PageFactory().defaultPage();
+//        customDao.listPage(page,condition);
         List cusList = customDao.list(condition);
         return super.warpObject(new CustomWrapper(cusList));
     }

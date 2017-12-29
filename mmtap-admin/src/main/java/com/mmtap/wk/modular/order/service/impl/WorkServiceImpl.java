@@ -96,15 +96,21 @@ public class WorkServiceImpl implements IWorkService {
         List<Flow> sortFlows = (List) flowDao.sortFlowList(MapUtils.getIntValue(info,"bid"));
         Flow nextFlow = null;
         boolean isLastState = false;
-        for(int i=0;i<sortFlows.size()-1;i++){
+        for(int i=0;i<sortFlows.size();i++){
             Flow tempFlow = sortFlows.get(i);
             if(tempFlow.getFid()==currentFid ){
-                nextFlow = sortFlows.get(i+1);
-                workDao.nextStep(wid,nextFlow.getFid());
+                if(i==sortFlows.size()-1){//判断是否是最后一步
+                    isLastState = true;
+                    nextFlow = tempFlow;
+                }else {
+                    nextFlow = sortFlows.get(i+1);
+                    workDao.nextStep(wid,nextFlow.getFid());
+                }
+
             }
-            if((sortFlows.size()-1 ==i) || (sortFlows.size()==i+1)){
-                isLastState = true;  //判断出是最后一步：应该完结具体业务
-            }
+//            if((sortFlows.size()-2 ==i) || (sortFlows.size()==i+2)){
+//                isLastState = true;  //判断出是最后一步：应该完结具体业务
+//            }
         }
 
         if (isLastState){
@@ -127,11 +133,18 @@ public class WorkServiceImpl implements IWorkService {
             trace.setWid(wid);
             trace.setWorkname(MapUtils.getString(info,"businessname"));
             trace.setBs(MapUtils.getIntValue(info,"fid"));
-            trace.setCs(nextFlow.getFid());  //新增业务当前务状态为最小值
             trace.setBsname(MapUtils.getString(info,"flowname"));
             trace.setCsname(nextFlow.getFlowname());
-            trace.setMsg("时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trace.getCreatetime())
-                    +"    操作员:"+trace.getDoername()+ "   处理完成业务["+trace.getWorkname()+"]    状态由["+trace.getBsname()+"]变更为:"+trace.getCsname());
+
+            if(isLastState){
+                trace.setCs(nextFlow.getFid());
+                trace.setMsg("时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trace.getCreatetime())
+                        +"    操作员:"+trace.getDoername()+ "   处理完成业务["+trace.getWorkname()+"]    状态由["+trace.getBsname()+"]变更为:业务办理完成!");
+            }else {
+                trace.setCs(nextFlow.getFid());
+                trace.setMsg("时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trace.getCreatetime())
+                        +"    操作员:"+trace.getDoername()+ "   处理完成业务["+trace.getWorkname()+"]    状态由["+trace.getBsname()+"]变更为:"+trace.getCsname());
+            }
             //日志写入
             trace.insert();
         }
