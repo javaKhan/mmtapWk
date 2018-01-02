@@ -1,6 +1,7 @@
 package com.mmtap.wk.modular.order.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.mmtap.wk.modular.order.model.Comment;
 import org.apache.commons.collections.MapUtils;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
@@ -35,9 +36,25 @@ public class AllOrderExcel extends ExcelView {
         header.createCell(col).setCellValue("订单备注");
         header.getCell(col).setCellStyle(super.cellStyle);
         col++;
+
+        header.createCell(col).setCellValue("用途");
+        header.getCell(col).setCellStyle(super.cellStyle);
+        col++;
+
         header.createCell(col).setCellValue("客户名称");
         header.getCell(col).setCellStyle(super.cellStyle);
         col++;
+
+        //淘宝店
+        header.createCell(col).setCellValue("淘宝店");
+        header.getCell(col).setCellStyle(super.cellStyle);
+        col++;
+
+        //淘宝订单
+        header.createCell(col).setCellValue("淘宝订单");
+        header.getCell(col).setCellStyle(super.cellStyle);
+        col++;
+
         header.createCell(col).setCellValue("电话");
         header.getCell(col).setCellStyle(super.cellStyle);
         col++;
@@ -53,9 +70,9 @@ public class AllOrderExcel extends ExcelView {
         header.createCell(col).setCellValue("来源");
         header.getCell(col).setCellStyle(super.cellStyle);
         col++;
-        header.createCell(col).setCellValue("地址");
-        header.getCell(col).setCellStyle(super.cellStyle);
-        col++;
+//        header.createCell(col).setCellValue("地址");
+//        header.getCell(col).setCellStyle(super.cellStyle);
+//        col++;
         header.createCell(col).setCellValue("客户备注");
         header.getCell(col).setCellStyle(super.cellStyle);
         col=0;
@@ -77,14 +94,18 @@ public class AllOrderExcel extends ExcelView {
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "createtime"));
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "name"));
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "comments"));
+            row.createCell(pointer++).setCellValue(MapUtils.getString(order, "used"));
             //订单的客户信息
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "customname"));
+            row.createCell(pointer++).setCellValue(MapUtils.getString(order, "tbname"));
+            row.createCell(pointer++).setCellValue(MapUtils.getString(order, "tbcode"));
+
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "mobile"));
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "netid"));
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "wwid"));
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "place"));
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "come"));
-            row.createCell(pointer++).setCellValue(MapUtils.getString(order, "address"));
+//            row.createCell(pointer++).setCellValue(MapUtils.getString(order, "address"));
             row.createCell(pointer++).setCellValue(MapUtils.getString(order, "cuscom"));
 
 
@@ -100,7 +121,15 @@ public class AllOrderExcel extends ExcelView {
                     row.createCell(pointer++).setCellValue("业务价格:" + m);
                     row.createCell(pointer++).setCellValue(MapUtils.getString(work, "price"));
                     row.createCell(pointer++).setCellValue("业务备注:" + m);
-                    row.createCell(pointer++).setCellValue(MapUtils.getString(work, "workcom"));
+
+                    List comList = CommentUtil.toComObj(MapUtils.getString(work,"workcom"));
+                    if(null!=comList){
+                        for(int i=0;i<comList.size();i++){
+                            Comment com = (Comment) comList.get(i);
+                            row.createCell(pointer++).setCellValue(com.getUname()+"-"+com.getCtime()+":"+com.getCtext());
+                        }
+                    }
+//                    row.createCell(pointer++).setCellValue(MapUtils.getString(work, "workcom"));
 
                     //处理业务信息的JSON
                     String infoStr = MapUtils.getString(work, "info");

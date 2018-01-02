@@ -1,6 +1,7 @@
 package com.mmtap.wk.modular.order.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.mmtap.wk.modular.order.model.Comment;
 import org.apache.commons.collections.MapUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -57,6 +58,18 @@ public class SigOrderExcel extends ExcelView {
         body.createCell(col).setCellValue(MapUtils.getString(map,"customname"));
         col++;
 
+        //淘宝店
+        header.createCell(col).setCellValue("淘宝店");
+        header.getCell(col).setCellStyle(super.cellStyle);
+        body.createCell(col).setCellValue(MapUtils.getString(map,"tbname"));
+        col++;
+
+        //淘宝订单
+        header.createCell(col).setCellValue("淘宝订单");
+        header.getCell(col).setCellStyle(super.cellStyle);
+        body.createCell(col).setCellValue(MapUtils.getString(map,"tbcode"));
+        col++;
+
         header.createCell(col).setCellValue("电话");
         header.getCell(col).setCellStyle(super.cellStyle);
         body.createCell(col).setCellValue(MapUtils.getString(map,"mobile"));
@@ -82,9 +95,9 @@ public class SigOrderExcel extends ExcelView {
         body.createCell(col).setCellValue(MapUtils.getString(map,"come"));
         col++;
 
-        header.createCell(col).setCellValue("地址");
+        header.createCell(col).setCellValue("用途");
         header.getCell(col).setCellStyle(super.cellStyle);
-        body.createCell(col).setCellValue(MapUtils.getString(map,"address"));
+        body.createCell(col).setCellValue(MapUtils.getString(map,"used"));
         col++;
 
         header.createCell(col).setCellValue("客户备注");
@@ -109,10 +122,21 @@ public class SigOrderExcel extends ExcelView {
                 header.getCell(col).setCellStyle(super.cellStyle);
                 body.createCell(col).setCellValue(MapUtils.getString(work,"price"));
                 col++;
-                header.createCell(col).setCellValue("业务备注"+x);
-                header.getCell(col).setCellStyle(super.cellStyle);
-                body.createCell(col).setCellValue(MapUtils.getString(work,"workcom"));
-                col++;
+
+                List comList = CommentUtil.toComObj(MapUtils.getString(work,"workcom"));
+                if(null!=comList){
+                    for(int i=0;i<comList.size();i++){
+                        Comment com = (Comment) comList.get(i);
+                        header.createCell(col).setCellValue(com.getUname()+"备注");
+                        header.getCell(col).setCellStyle(super.cellStyle);
+                        body.createCell(col).setCellValue(com.getCtime()+":"+com.getCtext());
+                        col++;
+                    }
+                }
+//                header.createCell(col).setCellValue("业务备注"+x);
+//                header.getCell(col).setCellStyle(super.cellStyle);
+//                body.createCell(col).setCellValue(MapUtils.getString(work,"workcom"));
+//                col++;
 
                 //处理业务信息的JSON
                 String infoStr = MapUtils.getString(work,"info");
