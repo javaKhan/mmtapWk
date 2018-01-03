@@ -13,6 +13,8 @@
                 <div class="col-sm-4">订单号:<b>${order.oid}</b></div>
                 <div class="col-sm-4">时间:${order.createtime,"yyyy-MM-dd HH:mm:ss"}</div>
                 <div class="col-sm-4">创建人:${createName}</div>
+                <div class="col-sm-4">用途:${order.used}</div>
+                <div class="col-sm-4">备注:${order.comments}</div>
             </div>
 
 
@@ -44,9 +46,6 @@
             <div class="row info-row-height">
                 <div class="col-sm-2 text-right">客户来源</div>
                 <div class="col-sm-4 b-r">${custom.come}</div>
-
-                <div class="col-sm-2 text-right">地址</div>
-                <div class="col-sm-4">${custom.address}</div>
             </div>
             <div class="row">
                 <div class="col-sm-2 text-right ">客户备注</div>

@@ -32,9 +32,15 @@
     </select>
 
     <select id="listInfo" resultType="map">
-      SELECT * FROM indent o,info i,custom c,work w WHERE o.oid=w.oid and c.cid=o.cid and w.wid=i.wid
+        select * from indent o ,custom c,`work` w left join info i on w.wid = i.wid
+        where o.oid = w.oid and o.cid = c.cid
         <if test="condition != null and condition != ''">
-            AND i.info like CONCAT('%',#{condition},'%')
+            and (
+                 i.info like CONCAT('%',#{condition},'%')
+              OR c.customname like CONCAT('%',#{condition},'%')
+              OR c.mobile like CONCAT('%',#{condition},'%')
+              OR c.wwid like CONCAT('%',#{condition},'%')
+            )
         </if>
         order by i.wid DESC
     </select>
