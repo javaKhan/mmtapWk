@@ -21,6 +21,7 @@ import com.mmtap.wk.modular.order.model.Work;
 import com.mmtap.wk.modular.order.service.IWorkService;
 import com.mmtap.wk.modular.order.service.MailService;
 import com.mmtap.wk.modular.order.utils.CommentUtil;
+import com.mmtap.wk.modular.order.utils.MailThread;
 import com.mmtap.wk.modular.order.wrapper.WorkWrapper;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -190,7 +191,8 @@ public class WorkController extends BaseController {
         }
         boolean result = workService.nextStep(wid);
         if (result){
-            mailService.sendHtmlMail(wid);
+            new MailThread(mailService,wid);
+//            mailService.sendHtmlMail(wid);
         }
         return PREFIX + "work_succes.html";
     }
@@ -207,7 +209,8 @@ public class WorkController extends BaseController {
         }
         boolean result = workService.beforeStep(wid,tostep);
         if(result){
-            mailService.sendHtmlMail(wid);
+            new MailThread(mailService,wid);
+//            mailService.sendHtmlMail(wid);
         }
         return PREFIX + "work_succes.html";
     }

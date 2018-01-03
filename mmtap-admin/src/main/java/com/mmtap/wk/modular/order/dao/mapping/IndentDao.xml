@@ -37,9 +37,14 @@
         <if test="condition != null and condition != ''">
             and (
                  i.info like CONCAT('%',#{condition},'%')
+              or o.oid LIKE CONCAT('%',#{condition},'%')
+              or o.used LIKE CONCAT('%',#{condition},'%')
               OR c.customname like CONCAT('%',#{condition},'%')
               OR c.mobile like CONCAT('%',#{condition},'%')
               OR c.wwid like CONCAT('%',#{condition},'%')
+              OR c.tbcode like CONCAT('%',#{condition},'%')
+              OR c.tbname like CONCAT('%',#{condition},'%')
+              OR c.netid like CONCAT('%',#{condition},'%')
             )
         </if>
         order by i.wid DESC

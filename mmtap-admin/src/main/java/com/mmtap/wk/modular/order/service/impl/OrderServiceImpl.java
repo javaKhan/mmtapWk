@@ -14,6 +14,7 @@ import com.mmtap.wk.modular.order.model.Custom;
 import com.mmtap.wk.modular.order.model.Indent;
 import com.mmtap.wk.modular.order.model.Work;
 import com.mmtap.wk.modular.order.service.MailService;
+import com.mmtap.wk.modular.order.utils.MailThread;
 import com.mmtap.wk.modular.order.utils.OrderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,8 @@ public class OrderServiceImpl implements IOrderService {
                 work.insert();
 
                 //邮件提醒
-                mailService.sendHtmlMail(work.getWid());
+                MailThread mailThread = new MailThread(mailService,work.getWid());
+//                mailService.sendHtmlMail(work.getWid());
 
                 /**
                  *  业务日志部分
@@ -85,8 +87,6 @@ public class OrderServiceImpl implements IOrderService {
                 trace.setWid(work.getWid());
                 trace.setWorkname(ConstantFactory.me().getBusinessInfo(work.getBid()).getBusinessname());
 
-                //新增业务时－业务日志纪录
-//                Integer flowId =ConstantFactory.me().getFlowInfo(work.getBid()).getFid();
                 if(null==work.getFid()){ //有业务了，还没有设置业务状态时
                     //TODO 没有业务状态的业务如何处理
                     trace.setMsg("时间:"+new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trace.getCreatetime())

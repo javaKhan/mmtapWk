@@ -30,8 +30,8 @@ public class WorkServiceImpl implements IWorkService {
     private WorkDao workDao;
     @Autowired
     private FlowDao flowDao;
-    @Autowired
-    private MailService mailService;
+//    @Autowired
+//    private MailService mailService;
 
 
     @Override
