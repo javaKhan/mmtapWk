@@ -86,6 +86,11 @@
                     <div class="row">
                         <div class="col-md-12"><h3>订购办理业务</h3></div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <#input id="used" name="订单用途" underline="true"/>
+                        </div>
+                    </div>
                     <div class="form-group container" style="padding: 20px;margin: 20px 5px;">
                         @for(bus in busList){
                         <div class="col-md-6 checkbox text-center" style="text-align: left">
@@ -104,9 +109,7 @@
                 </div>
                 <div class="row btn-group-m-t">
                     <div class="col-sm-10 text-center">
-                        <!--<#button btnCss="info" name="受理业务" id="ensure" icon="fa-check" clickFun="OrderInfoDlg.addSubmit()"/>-->
                         <button class="btn btn-primary " type="submit">受理</button>
-                        <!--<#button btnCss="danger" name="重新填写" id="cancel" icon="fa-eraser" clickFun="OrderInfoDlg.close()"/>-->
                     </div>
                 </div>
 
