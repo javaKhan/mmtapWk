@@ -23,4 +23,6 @@ public interface IOrderService {
     List bakBatch(Date bdate,Date edate);
 
     List<Map> listInfo(String condition);
+
+    void deleteOrder(String orderId);
 }

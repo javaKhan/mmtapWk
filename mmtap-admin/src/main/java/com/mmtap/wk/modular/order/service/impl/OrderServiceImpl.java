@@ -4,11 +4,13 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.mmtap.wk.common.constant.factory.ConstantFactory;
 import com.mmtap.wk.common.persistence.model.User;
 import com.mmtap.wk.core.shiro.ShiroKit;
+import com.mmtap.wk.modular.business.dao.TraceDao;
 import com.mmtap.wk.modular.business.model.Business;
 import com.mmtap.wk.modular.business.model.Flow;
 import com.mmtap.wk.modular.business.model.Trace;
 import com.mmtap.wk.modular.order.dao.CustomDao;
 import com.mmtap.wk.modular.order.dao.IndentDao;
+import com.mmtap.wk.modular.order.dao.InfoDao;
 import com.mmtap.wk.modular.order.dao.WorkDao;
 import com.mmtap.wk.modular.order.model.Custom;
 import com.mmtap.wk.modular.order.model.Indent;
@@ -38,6 +40,10 @@ public class OrderServiceImpl implements IOrderService {
     private CustomDao customDao;
     @Autowired
     private WorkDao workDao;
+    @Autowired
+    private InfoDao infoDao;
+    @Autowired
+    private TraceDao traceDao;
     @Autowired
     private MailService mailService;
 
@@ -134,5 +140,14 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public List<Map> listInfo(String condition) {
         return indentDao.listInfo(condition);
+    }
+
+    @Override
+    @Transactional
+    public void deleteOrder(String orderId) {
+        infoDao.deleteInfoByOrderId(orderId);
+        workDao.delete(new EntityWrapper<Work>().eq("oid",orderId));
+        traceDao.delete(new EntityWrapper<Trace>().eq("oid",orderId));
+        indentDao.deleteById(orderId);
     }
 }

@@ -17,7 +17,7 @@ import java.util.Map;
 public interface IndentDao extends BaseMapper<Indent>{
 
 
-    List<Map<String,Object>> list(String condition);
+    List<Map<String,Object>> list(@Param("condition") String condition);
 
     Indent selectById(String oid);
 

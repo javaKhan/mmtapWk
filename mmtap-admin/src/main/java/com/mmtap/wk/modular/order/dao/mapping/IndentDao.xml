@@ -3,8 +3,17 @@
 <mapper namespace="com.mmtap.wk.modular.order.dao.IndentDao">
 
     <select id="list" resultType="map">
-        select * from indent,custom where indent.cid=custom.cid
-        order by indent.createtime DESC
+        select * from indent o,custom c where o.cid=c.cid
+        <if test="condition != null and condition != ''">
+            AND (
+                o.oid LIKE CONCAT('%',#{condition},'%')
+              OR c.customname like CONCAT('%',#{condition},'%')
+              OR c.mobile like CONCAT('%',#{condition},'%')
+              OR c.wwid like CONCAT('%',#{condition},'%')
+              OR c.netid like CONCAT('%',#{condition},'%')
+            )
+        </if>
+        order by o.createtime DESC
     </select>
 
     <select id="selectById" resultType="com.mmtap.wk.modular.order.model.Indent">

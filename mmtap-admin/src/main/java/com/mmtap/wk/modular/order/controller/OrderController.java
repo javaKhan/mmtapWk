@@ -174,7 +174,11 @@ public class OrderController extends BaseController {
      */
     @RequestMapping(value = "/delete")
     @ResponseBody
-    public Object delete() {
+    public Object delete(String orderId) {
+        if (ToolUtil.isEmpty(orderId)) {
+            throw new BussinessException(BizExceptionEnum.REQUEST_NULL);
+        }
+        orderService.deleteOrder(orderId);
         return SUCCESS_TIP;
     }
 

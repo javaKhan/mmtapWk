@@ -75,14 +75,17 @@ Order.openOrderDetail = function () {
  */
 Order.delete = function () {
     if (this.check()) {
-        var ajax = new $ax(Feng.ctxPath + "/order/delete", function (data) {
-            Feng.success("删除成功!");
-            Order.table.refresh();
-        }, function (data) {
-            Feng.error("删除失败!" + data.responseJSON.message + "!");
-        });
-        ajax.set("orderId",this.seItem.id);
-        ajax.start();
+        var oper = function () {
+            var ajax = new $ax(Feng.ctxPath + "/order/delete", function (data) {
+                Feng.success("删除成功!");
+                Order.table.refresh();
+            }, function (data) {
+                Feng.error("删除失败!" + data.responseJSON.message + "!");
+            });
+            ajax.set("orderId",Order.seItem.oid);
+            ajax.start();
+        }
+        Feng.confirm("是否要删除订单["+Order.seItem.oid+"]?",oper);
     }
 };
 

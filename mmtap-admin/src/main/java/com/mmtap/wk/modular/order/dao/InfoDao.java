@@ -17,4 +17,6 @@ public interface InfoDao extends BaseMapper<Info>{
     void updateWorkInfo(Info info);
 
     void insertWorkInfo(Info info);
+
+    void deleteInfoByOrderId(String orderId);
 }

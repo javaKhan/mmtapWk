@@ -10,4 +10,7 @@
     <insert id="insertWorkInfo" parameterType="com.mmtap.wk.modular.order.model.Info">
         INSERT INTO  info (wid,info) VALUES (#{wid},#{info})
     </insert>
+    <delete id="deleteInfoByOrderId">
+        DELETE from info where wid in (select wid from `work` w where w.oid = #{orderId})
+    </delete>
 </mapper>
